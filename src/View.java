@@ -32,7 +32,7 @@ public class View extends JFrame
                 config.get("database"),       // database name
                 config.get("host"),           // host
                 config.get("port"),           // port
-                config.get("username"),       // username
+                config.get("user"),       // username
                 config.get("password")        // password
         ));
 
