@@ -16,6 +16,8 @@ everything above, plus:
 - **PostgreSQL JDBC driver** (v 42.1.1+)
 	>[download link](https://jdbc.postgresql.org/download.html) (jdbc.postgresql.org)  
 	> add the jar file to your Java project as a library
+	
+- [**Java JDK**](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (v 1.8+)
 
 
 ## Installation and Running ##
