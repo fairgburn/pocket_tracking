@@ -13,8 +13,7 @@ public class View extends JFrame
     Surface surface = new Surface();
     PostgresDB pdb = new PostgresDB();
     Arguments arguments = null;
-    Settings config = null;     // class Settings is a factory:
-                                // get instance by calling static getSettings() method, not constructor
+    Settings config = null;
 
 
     public View(String[] args) {
@@ -39,7 +38,7 @@ public class View extends JFrame
         pdb.connect();
         surface.setView(this);
         add(surface);
-        setTitle("ACS Pocket Tracking");
+        setTitle(config.get("window_title"));
 
         // default size if window is moved
         setSize(1280, 720);
