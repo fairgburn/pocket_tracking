@@ -7,7 +7,7 @@
 
 - [**Python**](https://www.python.org/downloads/) (v  3.6+)
 
-### To build ###
+### To build from source: ###
 everything above, plus:
 
 - **psycopg2** - PostgreSQL adapter for Python
