@@ -156,12 +156,17 @@ public class Surface extends JPanel
                 // here is where the lines actually get drawn // TODO: make use of line width/height from database
                 int counter = 0;
                 for (Line l : lineList) {
+                    // get inventory for line
+                    ResultSet inv = pdb.executeQuery("SELECT * FROM inventory WHERE id=" + l.id);
 
                     // set line region and draw it
                     int width = (x_max - x_min) / 6;
                     int height = (y_max - padding) - (y_min + padding);
                     int x = line_centers[counter] - (width >> 1);
                     int y = y_min + padding;
+
+                    // give line inv info
+                    l.setInventory(inv);
                     l.setRegion( new Region(x, y, width, height) );
                     l.draw(g);
 

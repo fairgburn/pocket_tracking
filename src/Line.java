@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.sql.ResultSet;
 import java.util.LinkedList;
 
 public class Line
@@ -7,6 +8,7 @@ public class Line
     int length;
     int width;
     int num_zones;
+    private ResultSet inventory;
 
     Region region = null;
 
@@ -38,12 +40,16 @@ public class Line
         for (int i = 0 ; i < num_zones ; i++) {
             int zone_height = region.height / num_zones;
             Zone z = new Zone(region.xmin, ( region.ymin + (i * zone_height) ), region.width, zone_height);
-            z.setZoneNum(i);
+            z.setZoneNum(i+1);
+
+            // zone inventory
+            //inventory.get
 
             if (create_new) {
                 zoneList.addLast(z);
             } else {
                 zoneList.get(i).update(z);
+                zoneList.get(i).setZoneNum(i);
             }
         }
     }
@@ -61,9 +67,35 @@ public class Line
         }
     }
 
+
     public LinkedList<Zone> getZoneList() {
         return this.zoneList;
     }
+
+    public void setInventory(ResultSet r) {
+        this.inventory = r;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

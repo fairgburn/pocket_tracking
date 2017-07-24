@@ -8,6 +8,8 @@ public class Zone extends Region
     Color borderColor = Color.black;
     int zone_num = 0;
 
+    private Unit unit = null;
+
     boolean selected = false;
 
     public Zone(int x, int y, int width, int height) {
@@ -17,6 +19,10 @@ public class Zone extends Region
     public void setSelected(boolean b) { this.selected = b; }
 
     public void setZoneNum(int num) { this.zone_num = num; }
+
+    public int getZoneNum() {
+        return this.zone_num;
+    }
 
     public boolean isSelected() { return selected; }
 
@@ -30,6 +36,10 @@ public class Zone extends Region
         super.drawRect(g);
 
         g.setColor(oldColor);
+    }
+
+    public void setUnit(Unit u) {
+        this.unit = u;
     }
 
     @Override
