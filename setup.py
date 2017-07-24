@@ -1,12 +1,5 @@
 #!/usr/bin/python3
 
-print('this will erase all inventory, continue? (y/n) ')
-if input().lower() not in ('y', 'yes'):
-    print('cancelled')
-    exit(0)
- 
-    
-
 import configparser
 try:
     import psycopg2
@@ -14,6 +7,15 @@ try:
 except:
     print("couldn't load module psycopg2!\n(try running 'pip install psycopg2')")
     exit(1)
+
+
+print('this will erase all inventory, continue? (y/n) ', end='')
+if input().lower() not in ('y', 'yes'):
+    print('cancelled')
+    exit(0)
+ 
+    
+
 
 # read database info from .ini file
 print('reading settings...')
