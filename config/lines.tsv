@@ -1,0 +1,7 @@
+;; Format:  id | width | length | num_zones
+;; (separated by tabs and/or spaces)
+
+
+1  120	500    5
+2  120	500    5
+3  120	500    4
