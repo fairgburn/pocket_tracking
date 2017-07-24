@@ -13,9 +13,8 @@ everything above, plus:
 - **psycopg2** - PostgreSQL adapter for Python
 	>run `pip install psycopg2` with Python installed
 
-- **PostgreSQL JDBC driver** (v 42.1.1+)
-	>[download link](https://jdbc.postgresql.org/download.html) (jdbc.postgresql.org)  
-	> add the jar file to your classpath for the project
+- [**PostgreSQL JDBC driver**](https://jdbc.postgresql.org/download.html) (v 42.1.1+)
+	> download the driver and add the jar file to your classpath for the project
 	
 - [**Java JDK**](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (v 1.8+)
 
