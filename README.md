@@ -28,7 +28,7 @@ Move the program folder wherever you like and execute the run script (`run.bat` 
 
 Configuration files are located in the directory *`config/`*  
 - `config.ini` - general settings
-- `lines.tsv` - line definitions (line ID, width, length, etc.)
+- `lines.tsv` - line definitions (line ID, width, length, etc.)  
 The program will not run if these settings are not configured correctly.  
 Generally speaking, you should not have to change the `port` setting for the database.  
 
