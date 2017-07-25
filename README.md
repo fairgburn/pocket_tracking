@@ -35,3 +35,7 @@ The program will not run if these settings are not configured correctly.
 Generally speaking, you should not have to change the `port` setting for the database.  
 
 
+### Editing the line definitions
+`config/lines.tsv` is a list of lines in the plant used to draw the GUI and set up the database. An example is included.  
+Alternatively you can use something like Excel to make this file by making a normal spreadsheet and saving it as a TSV:  
+![spreadsheet](http://imgur.com/ulvxVVl)

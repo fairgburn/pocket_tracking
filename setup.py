@@ -233,5 +233,4 @@ if not done:
 if done and need_commit:
     conn.commit()
 
-# goodbye!
 print('setup completed successfully!!!')
