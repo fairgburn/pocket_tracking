@@ -1,22 +1,23 @@
 # Pocket Tracking #
 
+
+
 ## Dependencies ##
 
-### To run: ###
-- [**Java JRE**](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (v 1.8+)
+### [**Java JRE**](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (v 1.8+)
 
-- [**Python**](https://www.python.org/downloads/) (v  3.6+)
+### [**Python**](https://www.python.org/downloads/) (v  3.6+)
 
-### To build from source: ###
-everything above, plus:
+### **psycopg2** - PostgreSQL adapter for Python (needed for setup.py)
+>run `pip install psycopg2` with Python installed
 
-- **psycopg2** - PostgreSQL adapter for Python
-	>run `pip install psycopg2` with Python installed
+### Only needed if building from source:
+
+- [**Java JDK**](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (v 1.8+) (only if building from source)
 
 - [**PostgreSQL JDBC driver**](https://jdbc.postgresql.org/download.html) (v 42.1.1+)
-	> download the driver and add the jar file to your classpath for the project
-	
-- [**Java JDK**](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (v 1.8+)
+> download the driver and add the jar file to your classpath for the project
+
 
 
 ## Installation and Running ##
