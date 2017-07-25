@@ -8,7 +8,7 @@
 
 ### [**Python**](https://www.python.org/downloads/) (v  3.6+)
 
-### **psycopg2** - *PostgreSQL adapter for Python (needed for setup.py)*
+### [**psycopg2**](http://initd.org/psycopg/) - *PostgreSQL adapter for Python (needed for setup.py)*
 >run `pip install psycopg2` with Python installed
 
 ### Only needed if building from source:
