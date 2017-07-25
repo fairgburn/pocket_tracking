@@ -30,7 +30,11 @@ public class Surface extends JPanel
     public void setView(View f) {
         this.view = f;
         this.pdb = this.view.getDatabase();
-        this.rs = pdb.executeQuery("SELECT * FROM lines");
+        try {
+            this.rs = pdb.executeQuery("SELECT * FROM lines");
+        } catch (Exception e) {
+            ErrorDlg.showError("error reading from lines table");
+        }
 
         this.linesRegion = new Region();
         this.scaleRegion = new Region();
