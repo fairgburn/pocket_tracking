@@ -26,7 +26,9 @@ Download the latest release from *`release/`* in the repo and extract the archiv
 Run `setup.py` configured for the database server (`setup.py --help` for usage)  
 Move the program folder wherever you like and execute the run script (`run.bat` on Windows, `run.sh` on Linux/Mac).
 
-Configuration files are located in the directory *`config/`*, with the main configuration as `config.ini`.  
+Configuration files are located in the directory *`config/`*  
+- `config.ini` - general settings
+- `lines.tsv` - line definitions (line ID, width, length, etc.)
 The program will not run if these settings are not configured correctly.  
 Generally speaking, you should not have to change the `port` setting for the database.  
 
