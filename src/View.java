@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
 import java.sql.ResultSet;
 import java.util.LinkedList;
@@ -14,6 +16,9 @@ public class View extends JFrame
     PostgresDB pdb = new PostgresDB();
     Arguments arguments = null;
     Settings config = null;
+
+    JPanel statusBar = new JPanel();
+    JLabel statusLabel = new JLabel();
 
 
     public View(String[] args) {
@@ -37,14 +42,35 @@ public class View extends JFrame
 
         pdb.connect();
         surface.setView(this);
-        add(surface);
-        setTitle(config.get("window_title"));
+        surface.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
+        surface.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
+
+/*** configure the GUI ***/
+
+        this.setLayout(new BorderLayout());
 
         // default size if window is moved
-        setSize(1280, 720);
+        this.setSize(1280, 720);
 
         // start program maximized
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        // put the main surface at the top
+        this.add(surface);
+
+        // status bar (bottom of screen)
+        statusBar = new JPanel();
+        statusBar.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
+        statusBar.setPreferredSize(new Dimension(this.getWidth(), 20)); // size of panel
+        statusBar.setLayout(new BoxLayout(statusBar, BoxLayout.X_AXIS));
+        statusLabel.setText("testing status bar");
+        statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        statusBar.add(statusLabel);
+        this.add(statusBar, BorderLayout.SOUTH);
+
+        setTitle(config.get("window_title"));
+
+
 
         // can't remember what this does
         setLocationRelativeTo(null);
@@ -77,6 +103,11 @@ public class View extends JFrame
                 v.setVisible(true);
             }
         });
+    }
+
+    // update status bar
+    public void setStatusText(String s) {
+        this.statusLabel.setText(s);
     }
 
 }

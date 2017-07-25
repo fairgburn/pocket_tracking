@@ -20,6 +20,9 @@ public class Surface extends JPanel
     private int padding;
     private Zone selected_zone = null;
 
+    // used for copy
+    private Zone clipboard = null;
+
     private boolean first_draw = true;
 
 
@@ -65,7 +68,7 @@ public class Surface extends JPanel
                                 Debug.log(z);
 
                                 // store selected zone
-                                selected_zone = (z.isSelected()) ? z : null;
+                                selected_zone = (z.isSelected()) ? z : selected_zone;
                                 repaint();
 
                             } else { // this zone was not clicked
@@ -207,7 +210,7 @@ public class Surface extends JPanel
                                             "COPY") {
                 @Override
                 public void click() {
-                    copyClick(g);
+                    clickCopy();
                 }
             };
             buttonCopy.draw(g);
@@ -220,7 +223,7 @@ public class Surface extends JPanel
                                             "PASTE") {
                 @Override
                 public void click() {
-                    Debug.log("paste button clicked");
+                    clickPaste(g);
                 }
             };
             buttonPaste.draw(g);
@@ -242,7 +245,13 @@ public class Surface extends JPanel
     /////////////////////////////
 
     // copy
-    void copyClick(Graphics2D g) {
+    void clickCopy() {
+        this.clipboard = this.selected_zone;
+        this.view.setStatusText("copied " + this.clipboard);
+    }
+
+    // paste
+    void clickPaste(Graphics2D g) {
 
     }
 
