@@ -4,9 +4,9 @@
 
 ## Dependencies ##
 
-### [**Java JRE**](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (v 1.8+)
+### [**Java JRE**](http://www.oracle.com/technetwork/java/javase/downloads/index.html) *(v 1.8+)*
 
-### [**Python**](https://www.python.org/downloads/) (v  3.6+)
+### [**Python**](https://www.python.org/downloads/) *(v 3.6+)*
 
 ### [**psycopg2**](http://initd.org/psycopg/) - *PostgreSQL adapter for Python (needed for setup.py)*
 >run `pip install psycopg2` with Python installed
