@@ -41,10 +41,10 @@ Alternatively you can use something like Excel to make this file by making a nor
 
 <p align="center">
 
-![spreadsheet](http://i.imgur.com/ulvxVVl.png)  
+>![spreadsheet](http://i.imgur.com/ulvxVVl.png)  
 >*note the first row is optional (anything after a semicolon is ignored by the parser)*
-
-![saving](http://i.imgur.com/2djBqgr.png)  
+>
+>![saving](http://i.imgur.com/2djBqgr.png)  
 >*in Excel, the quotes in the file name are required so it doesn't append `.txt` to your file name*
 
 </p>
