@@ -16,7 +16,7 @@
 - [**Java JDK**](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (v 1.8+) (only if building from source)
 
 - [**PostgreSQL JDBC driver**](https://jdbc.postgresql.org/download.html) (v 42.1.1+)
-> download the driver and add the jar file to your classpath for the project
+  > download the driver and add the jar file to your classpath for the project
 
 
 
