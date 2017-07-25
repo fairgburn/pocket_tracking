@@ -1,7 +1,27 @@
 ;; Format:  id | width | length | num_zones
 ;; (separated by tabs and/or spaces)
+;; semicolons begin a comment
+;; blank lines ignored
+;
+;    
+;    1              <tab>             120            <tab>   500              <tab>  5
+;    |		      |		       |	     	      |		      	     |
+;    |                |                |                      |                      |          
+;    ^(line id)       ^(separator)     ^(line width)          ^(line length)         ^(number of zones)
+;--------------------------------------------------------------------------------------------------------
+;
+; 1	100	400	7 ; line id=1, width=100, length=400, number of zones=7
+; 2	100	400	8 ; line id=2, width=100, length=400, number of zones=8
+;
+; example
+; 1 100	500  4
+; 2 100	500  4
+; 3 100	500  5
+;
+; start line definitions here:
 
 
-1  120	500    5
-2  120	500    5
-3  120	500    4
+1 100	500  4
+2 100	500  4
+3 100	500  5
+

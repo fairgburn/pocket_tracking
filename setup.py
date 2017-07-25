@@ -1,6 +1,23 @@
 #!/usr/bin/python3
+#
+# Brandon Fairburn July 24, 2017
+#
+# setup.py: Run to initialize database and after any changes to a line
+#           Edit `config/lines.tsv` before running
+#
+# If setup.py exits at any time before completion, no changes are saved
+# in the database.
 
-description_string = "Initialize the database - gets database info and line definitions from external files"
+
+
+description_string = '\n'.join(
+    [ "Initialize the database",
+      " * reads database info and line definitions from `config/` directory",
+      " * DELETES ALL DATA FROM THE DATABASE before recreating it as an empty set",
+      " * line definitions (`config/lines.tsv`) is a tab-separated list of lines used",
+      "     to initialize the database for all the lines and zones in the plant.",
+      "     Edit this before running setup.py.",
+      " * configurable with the following options:" ])
 
 import configparser
 import argparse
@@ -17,10 +34,11 @@ default_config_path = './config/config.ini'
 default_linedefs_path = './config/lines.tsv'
 
 # command line arguments
-clargs_p = argparse.ArgumentParser(description=description_string)
+clargs_p = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,
+                                   description=description_string)
 clargs_p.add_argument('-I', '--inv-only', help='only generate inventory table', action='store_true')
 clargs_p.add_argument('-L', '--lines-only', help='only generate lines table', action='store_true')
-clargs_p.add_argument('-f', '--force', help='force run (don\'t ask before doing dangerous stuff)', action='store_true')
+clargs_p.add_argument('-f', '--force', help='force run (don\'t ask before altering database)', action='store_true')
 clargs_p.add_argument('-c', '--config',
                       help='provide a non-default path to config file (relative to setup.py location)',
                       metavar='PATH',
@@ -119,7 +137,7 @@ def generate_lines_table():
                 cur.execute(sql)
     except:
         print("error reading line definitions (either bad formatting or couldn't open `{}`)".format(
-            linedefs_path, clargs['line_defs']))
+            linedefs_path))
         exit(1)
 
     print('done')
@@ -176,9 +194,8 @@ def generate_inventory_table():
 
     sql = sql.rstrip(', ') # tidy up the end of the string
 
-    # pull the trigger
+    
     cur.execute(sql)
-
     print('done')
 
 
