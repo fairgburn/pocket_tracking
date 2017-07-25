@@ -38,4 +38,13 @@ Generally speaking, you should not have to change the `port` setting for the dat
 ### Editing the line definitions
 `config/lines.tsv` is a list of lines in the plant used to draw the GUI and set up the database. An example is included.  
 Alternatively you can use something like Excel to make this file by making a normal spreadsheet and saving it as a TSV:  
-![spreadsheet](http://i.imgur.com/ulvxVVl.png)
+
+<p align="center">
+![spreadsheet](http://i.imgur.com/ulvxVVl.png)  
+>*note the first row is optional (anything after a semicolon is ignored by the parser)*
+
+![saving](http://i.imgur.com/2djBqgr.png)  
+>*in Excel, the quotes in the file name are required so it doesn't append `.txt` to your file name*
+</p>
+
+
