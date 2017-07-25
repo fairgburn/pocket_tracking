@@ -22,7 +22,8 @@
 
 ## Installation and Running ##
 Download the latest release from *`release/`* in the repo and extract the archive.  
-Run `setup.py` on the database server (`setup.py --help` for usage)  
+[*Set up a PostgreSQL server*](https://www.postgresql.org/docs/9.1/static/runtime.html) and make an empty database called `pt-db`  
+Run `setup.py` on configured for the database server (`setup.py --help` for usage)  
 Move the program wherever you like and execute the run script (`run.bat` on Windows, `run.sh` on Linux/Mac).
 
 Configuration files are located in the directory *`config/`*, with the main configuration as `config.ini`.  
