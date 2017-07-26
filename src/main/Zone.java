@@ -5,17 +5,27 @@ import java.awt.*;
 public class Zone extends Region
 {
 
-    Color backgroundColor = new Color(200, 200, 200);
-    Color borderColor = Color.black;
-    int zone_num = 0;
 
+/** members **/
+
+    private Color backgroundColor = new Color(200, 200, 200);
+    private Color borderColor = Color.black;
+    private int zone_num = 0;
+
+    // inventory held by this zone
     private Unit unit = null;
 
     boolean selected = false;
 
-    public Zone(int x, int y, int width, int height) {
+    public Zone(int x, int y, int width, int height, int zone_num) {
         super(x, y, width, height);
+        this.zone_num = zone_num;
     }
+
+
+/** methods **/
+
+    public boolean isSelected() { return selected; }
 
     public void setSelected(boolean b) { this.selected = b; }
 
@@ -25,8 +35,27 @@ public class Zone extends Region
         return this.zone_num;
     }
 
-    public boolean isSelected() { return selected; }
 
+
+
+
+    public void setUnit(Unit u) {
+        this.unit = u;
+    }
+
+
+/** Superclass **/
+
+    @Override
+    public String toString() {
+        return "((ZONE " + zone_num + "))\n" +
+                "x: " + this.x + "\n" +
+                "y: " + this.y + "\n" +
+                "width: " + this.width + "\n" +
+                "height: " + this.height + "\n";
+    }
+
+    @Override
     public void draw(Graphics2D g) {
         Color oldColor = g.getColor();
 
@@ -36,25 +65,7 @@ public class Zone extends Region
         g.setColor(borderColor);
         super.drawBorder(g);
 
-        // draw unit if zone has one
-        if (unit != null) {
-            g.fillRect(this.x + 20, this.y + 20, 30, 30);
-        }
-
         g.setColor(oldColor);
-    }
-
-    public void setUnit(Unit u) {
-        this.unit = u;
-    }
-
-    @Override
-    public String toString() {
-        return "((ZONE " + zone_num + "))\n" +
-                "x: " + this.x + "\n" +
-                "y: " + this.y + "\n" +
-                "width: " + this.width + "\n" +
-                "height: " + this.height + "\n";
     }
 
 

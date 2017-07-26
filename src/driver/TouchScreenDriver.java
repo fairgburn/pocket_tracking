@@ -1,39 +1,78 @@
+/**
+ * TouchScreenDriver class
+ *
+ * Handles touch screen interactions and signals the regions which are touched
+ *
+ * Brandon Fairburn 7/2017
+ */
+
 package driver;
 
+import main.Region;
 import main.Surface;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
-public class TouchScreen
+public class TouchScreenDriver
         extends MouseAdapter
         implements driver.Driver
 {
 
-    Surface surface;
+    private Surface surface;
+    private LinkedList<Region> regions;
 
 
-
-    /** Driver **/
-    @Override
-    public void connect(Object[] objects) {
-
-    }
-
-    @Override
-    public void start() {
-
+    public TouchScreenDriver() {
+        surface = null;
+        regions = new LinkedList<>();
     }
 
 
-    /** MouseAdapter **/
 
-    /*@Override
+/** Driver **/
+
+    // connect to the regions of the screen so we can signal them when they are touched
+    @Override
+    public void connect(List<Object> objects) {
+        // need a list of regions to signal
+        for (Object o : objects) {
+            regions.addLast( (Region)o );
+        }
+    }
+
+    // make the Surface listen to the TouchScreen
+    @Override
+    public void start(Object o) {
+        Surface s = (Surface)o;
+        s.addMouseListener(this);
+    }
+
+
+/** MouseAdapter **/
+
+    @Override
     public void mousePressed(MouseEvent mouseEvent) {
-        // only care about left click
+
+        // looking for left click
+        if (mouseEvent.getButton() != 1) return;
+
+        // figure out where screen was clicked
+        Point p = mouseEvent.getPoint();
+
+        // signal the clicked region
+        for (Region r : regions) {
+            if (r.inRegion(p)) {
+                r.touch(p);
+                break;
+            }
+        }
+
+        /*// only care about left click
         if (mouseEvent.getButton() != 1) return;
 
         Point p = mouseEvent.getPoint();
@@ -76,8 +115,8 @@ public class TouchScreen
 
         }
 
-        //------------------------------------------------------------------------------------------------------
-    }*/
+        *///------------------------------------------------------------------------------------------------------
+    }
 
 
 

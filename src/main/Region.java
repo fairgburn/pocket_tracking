@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.*;
+import java.util.LinkedList;
 
 // container class - used to split surface into regions
 public class Region
@@ -12,11 +13,16 @@ public class Region
     public int width;
     public int height;
 
+    // add subregions here (not enforced, only for convenience)
+    private LinkedList<Region> subregions;
+
+    /****/
     public Region(int x, int y, int width, int height) { update(x, y, width, height); }
 
     public Region(Region r) { this(r.x, r.y, r.width, r.height); }
 
     public Region() {}
+    /****/
 
     public void update(int x, int y, int width, int height) {
         this.x = x;
@@ -52,5 +58,10 @@ public class Region
     }
 
     public void fill(Graphics2D g) { drawBorder(g, true); }
+
+/** Override **/
+    public void touch(Point p) {}
+    public void attach(Surface s) {}
+    public void draw(Graphics2D g) {}
 
 }

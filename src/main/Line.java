@@ -41,8 +41,8 @@ public class Line
         // create zones
         for (int i = 0 ; i < num_zones ; i++) {
             int zone_height = region.height / num_zones;
-            Zone z = new Zone(region.x, ( region.y + (i * zone_height) ), region.width, zone_height);
-            z.setZoneNum(i+1);
+            Zone z = new Zone(region.x, ( region.y + (i * zone_height) ), region.width, zone_height, i + 1);
+            //z.setZoneNum(i+1);
 
             // zone inventory
             //inventory.get
