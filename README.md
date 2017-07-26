@@ -24,6 +24,8 @@
 Download the latest release from *`release/`* in the repo and extract the archive.  
 [*Set up a PostgreSQL server*](https://www.postgresql.org/docs/9.1/static/runtime.html) and make an empty database called `pt-db`  
 Run `setup.py` configured for the database server (`setup.py --help` for usage)  
+>this program is designed to be run on a Raspberry Pi, Windows installation requires running this Python script  
+>from the command line  
 Move the program folder wherever you like and execute the run script (`run.bat` on Windows, `run.sh` on Linux/Mac).
 
 Configuration files are located in the directory *`config/`*
