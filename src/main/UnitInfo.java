@@ -1,4 +1,6 @@
-public class UnitInfo 
+package main;
+
+public class UnitInfo
 {
     public int order;
     public String customer;

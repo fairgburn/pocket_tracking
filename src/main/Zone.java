@@ -1,5 +1,6 @@
+package main;
+
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 
 public class Zone extends Region
 {
@@ -30,10 +31,15 @@ public class Zone extends Region
         Color oldColor = g.getColor();
 
         g.setColor( (selected) ? Color.yellow : backgroundColor);
-        super.fillRect(g);
+        super.fill(g);
 
         g.setColor(borderColor);
-        super.drawRect(g);
+        super.drawBorder(g);
+
+        // draw unit if zone has one
+        if (unit != null) {
+            g.fillRect(this.x + 20, this.y + 20, 30, 30);
+        }
 
         g.setColor(oldColor);
     }
@@ -45,8 +51,8 @@ public class Zone extends Region
     @Override
     public String toString() {
         return "((ZONE " + zone_num + "))\n" +
-                "x: " + this.xmin + "\n" +
-                "y: " + this.ymin + "\n" +
+                "x: " + this.x + "\n" +
+                "y: " + this.y + "\n" +
                 "width: " + this.width + "\n" +
                 "height: " + this.height + "\n";
     }

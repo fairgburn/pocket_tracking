@@ -1,10 +1,9 @@
+package main;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
-import java.sql.ResultSet;
-import java.util.LinkedList;
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -12,7 +11,7 @@ import java.util.LinkedList;
 public class View extends JFrame
 {
 
-    Surface surface = new Surface();
+    Surface surface;
     PostgresDB pdb = new PostgresDB();
     Arguments arguments = null;
     Settings config = null;
@@ -41,11 +40,9 @@ public class View extends JFrame
         ));
 
         pdb.connect();
-        surface.setView(this);
-        surface.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
-        surface.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
 
-/*** configure the GUI ***/
+
+        /*** configure the GUI ***/
 
         this.setLayout(new BorderLayout());
 
@@ -56,7 +53,10 @@ public class View extends JFrame
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         // put the main surface at the top
-        this.add(surface);
+        surface = new Surface(this);
+        surface.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
+        surface.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
+        add(surface);
 
         // status bar (bottom of screen)
         statusBar = new JPanel();
@@ -66,14 +66,13 @@ public class View extends JFrame
         statusLabel.setText("testing status bar");
         statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
         statusBar.add(statusLabel);
-        this.add(statusBar, BorderLayout.SOUTH);
+        add(statusBar, BorderLayout.SOUTH);
 
+        // set the window title
         setTitle(config.get("window_title"));
 
-
-
         // can't remember what this does
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
 
         // just exit the program when user clicks on the x
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,20 +81,32 @@ public class View extends JFrame
     }
 
 
+
     public PostgresDB getDatabase() {
         return this.pdb;
     }
 
 
+
+
+    // update status bar
+    public void setStatusText(String s) {
+        this.statusLabel.setText(s);
+    }
+
+
+/** main **/
+
+
     public static void main(String[] args) {
-        // set native look
+        // set native OS look
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // create a View object in the event queue to be run later
+        // create a main.View object in the event queue to be run later
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -103,11 +114,6 @@ public class View extends JFrame
                 v.setVisible(true);
             }
         });
-    }
-
-    // update status bar
-    public void setStatusText(String s) {
-        this.statusLabel.setText(s);
     }
 
 }

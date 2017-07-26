@@ -1,3 +1,5 @@
+package main;
+
 import java.io.OutputStream;
 
 public class Debug

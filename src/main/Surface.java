@@ -1,3 +1,19 @@
+package main;
+
+/*****************************************************************
+ * main.Surface class, GUI
+ *  - extends JPanel
+ *
+ * Main drawing board for graphics
+ * Uses its region to shift focus to subregions for painting
+ *
+ *
+ * Brandon Fairburn 7/17
+ *
+ * ***************************************************************/
+
+import driver.TouchScreen;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -26,11 +42,11 @@ public class Surface extends JPanel
     private boolean first_draw = true;
 
 
-    public Surface(View f) { setView(f); }
+    public Surface(View f) { init(f); }
     public Surface() { this.view = null; }
 
 
-    public void setView(View f) {
+    public void init(View f) {
         this.view = f;
         this.pdb = this.view.getDatabase();
         try {
@@ -39,13 +55,19 @@ public class Surface extends JPanel
             ErrorDlg.showError("error reading from lines table");
         }
 
+        // regions of the main display
         this.linesRegion = new Region();
         this.scaleRegion = new Region();
         this.cmdRegion = new Region();
 
+        // connect the touch screen TODO
+        TouchScreen ts = new TouchScreen();
+        addMouseListener(ts);
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // handle left mouse clicks
+        // handle left mouse clicks TODO replace with TouchScreen
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -58,14 +80,14 @@ public class Surface extends JPanel
                 // LINES REGION ////////////////////////////////////////////////////////////////////////////////////////
 
                 if (linesRegion.inRegion(p)) {
-                    for (Line l : lineList) {
+                    for (main.Line l : lineList) {
 
-                        for (Zone z : l.getZoneList()) {
+                        for (main.Zone z : l.getZoneList()) {
                             if (z.inRegion(p)) { // this zone was clicked
                                 // flip selected bit for zone that was clicked
                                 z.setSelected(!z.isSelected());
-                                Debug.log("user clicked LINE " + l.id);
-                                Debug.log(z);
+                                main.Debug.log("user clicked LINE " + l.id);
+                                main.Debug.log(z);
 
                                 // store selected zone
                                 selected_zone = (z.isSelected()) ? z : selected_zone;
@@ -86,7 +108,7 @@ public class Surface extends JPanel
                 // COMMAND REGION //////////////////////////////////////////////////////////////////////////////////////
                 else if (cmdRegion.inRegion(p)) {
 
-                    for (Button b : buttonList) {
+                    for (main.Button b : buttonList) {
                         if (b.inRegion(p))
                             b.click();
                     }
@@ -102,10 +124,10 @@ public class Surface extends JPanel
     }
 
     private void setRegion(Region r) {
-        this.x_max = r.xmax;
-        this.y_max = r.ymax;
-        this.x_min = r.xmin;
-        this.y_min = r.ymin;
+        this.x_max = r.x_max;
+        this.y_max = r.y_max;
+        this.x_min = r.x;
+        this.y_min = r.y;
     }
 
     private void doDrawing(Graphics gg) {
@@ -118,19 +140,19 @@ public class Surface extends JPanel
 
             // divide drawing surface into regions
             linesRegion.update( 0, 0, (x_max * 2/3), y_max);
-            scaleRegion.update( linesRegion.xmax, 0, (x_max - linesRegion.xmax), (y_max >> 1) );
-            cmdRegion.update( linesRegion.xmax, scaleRegion.ymax, scaleRegion.width, (y_max - scaleRegion.height) );
+            scaleRegion.update( linesRegion.x_max, 0, (x_max - linesRegion.x_max), (y_max >> 1) );
+            cmdRegion.update( linesRegion.x_max, scaleRegion.y_max, scaleRegion.width, (y_max - scaleRegion.height) );
 
             // paint the regions
             Color oldColor = g.getColor();
             g.setColor(new Color(169,54,61));
-            linesRegion.fillRect(g);
+            linesRegion.fill(g);
 
             g.setColor(new Color(180, 124, 20));
-            scaleRegion.fillRect(g);
+            scaleRegion.fill(g);
 
             g.setColor(new Color(54,119,169));
-            cmdRegion.fillRect(g);
+            cmdRegion.fill(g);
             g.setColor(oldColor);
 
 
@@ -141,7 +163,7 @@ public class Surface extends JPanel
             try {
                 // while loop only runs once (cursor is persistent; remains at end so rs.next() is false
                 //  on subsequent passes
-                while (this.rs.next()) {
+                while (this.rs.next()) { // TODO move this to init()
                     Line l = new Line(rs.getInt("id"), rs.getInt("length"), rs.getInt("width"), rs.getInt("num_zones"));
                     //l.setRegion(linesRegion);
                     lineList.addLast(l);
@@ -163,25 +185,24 @@ public class Surface extends JPanel
                 // here is where the lines actually get drawn // TODO: make use of line width/height from database
                 int counter = 0;
                 for (Line l : lineList) {
-                    // get inventory for line
-                    ResultSet inv = pdb.executeQuery("SELECT * FROM inventory WHERE id=" + l.id);
+                    /** give line its inventory **/
+                    ResultSet invSet = pdb.executeQuery("SELECT * FROM inventory WHERE id=" + l.id);
+                    l.setInventory(invSet);
 
                     // set line region and draw it
                     int width = (x_max - x_min) / 6;
                     int height = (y_max - padding) - (y_min + padding);
                     int x = line_centers[counter] - (width >> 1);
                     int y = y_min + padding;
-
-                    // give line inv info
-                    l.setInventory(inv);
                     l.setRegion( new Region(x, y, width, height) );
-                    l.draw(g);
+                    l.draw(g); // draw zones and units
 
                     counter++;
                 }
 
             } catch (Exception e) { e.printStackTrace(); }
             //----------------------------------------------------------------------------------------------------------
+
 
 
             // command region //////////////////////////////////////////////////////////////////////////////////////////

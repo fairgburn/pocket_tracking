@@ -1,3 +1,5 @@
+package main;
+
 import java.awt.*;
 import java.sql.ResultSet;
 import java.util.LinkedList;
@@ -8,7 +10,7 @@ public class Line
     int length;
     int width;
     int num_zones;
-    private ResultSet inventory;
+    private Unit inventory;
 
     Region region = null;
 
@@ -39,7 +41,7 @@ public class Line
         // create zones
         for (int i = 0 ; i < num_zones ; i++) {
             int zone_height = region.height / num_zones;
-            Zone z = new Zone(region.xmin, ( region.ymin + (i * zone_height) ), region.width, zone_height);
+            Zone z = new Zone(region.x, ( region.y + (i * zone_height) ), region.width, zone_height);
             z.setZoneNum(i+1);
 
             // zone inventory
@@ -73,7 +75,34 @@ public class Line
     }
 
     public void setInventory(ResultSet r) {
-        this.inventory = r;
+        // see if there is anything in line
+        try {
+
+            while (r.next()) {
+                // get unit info
+                UnitInfo unitInfo = new UnitInfo(
+                        r.getInt("order_num"),
+                        r.getString("customer"),
+                        r.getInt("width"),
+                        r.getInt("length"));
+
+                // put inventory in zone
+                int z_num = r.getInt("zone");
+                for(Zone zone : zoneList) {
+                    if (zone.getZoneNum() == z_num) {
+                        // set inventory for zone (null for empty)
+                        Unit u = null;
+                        if (unitInfo.order != 0)
+                            u = new Unit(unitInfo);
+                        zone.setUnit(u);
+                        break;
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

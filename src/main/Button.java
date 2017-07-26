@@ -1,3 +1,5 @@
+package main;
+
 import java.awt.*;
 
 public class Button extends Region
@@ -28,11 +30,11 @@ public class Button extends Region
 
         // draw button
         g.setColor(backgroundColor);
-        super.fillRect(g);
+        super.fill(g);
 
         // draw border
         g.setColor(borderColor);
-        super.drawRect(g);
+        super.drawBorder(g);
 
         //// write text ////
         int font_size = (int)(this.height * 0.75); // pixels x 0.75 = font size (pt)
@@ -43,8 +45,8 @@ public class Button extends Region
         // measure text and determine where to draw it
         int txt_width = fm.stringWidth(this.text);
         Point txt_point = new Point();
-        txt_point.x = this.xmin + ( (this.width - txt_width) >> 1 ); // center of button
-        txt_point.y = this.ymax - (this.height >> 2);
+        txt_point.x = this.x + ( (this.width - txt_width) >> 1 ); // center of button
+        txt_point.y = this.y_max - (this.height >> 2);
 
         // set up text anti aliasing
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);

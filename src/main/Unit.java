@@ -1,3 +1,5 @@
+package main;
+
 import java.awt.*;
 
 public class Unit extends Region
@@ -18,8 +20,8 @@ public class Unit extends Region
         int padding_x = this.width / 10;
         int padding_y = this.height / 10;
 
-        super.update(   r.xmin + padding_x,
-                        r.ymin + padding_y,
+        super.update(   r.x + padding_x,
+                        r.y + padding_y,
                         r.width - (padding_x >> 1),
                         r.height - (padding_y >> 1));
 
@@ -29,7 +31,7 @@ public class Unit extends Region
         Color oldColor = g.getColor();
 
         g.setColor(backgroundColor);
-        super.fillRect(g);
+        super.fill(g);
 
         g.setColor(oldColor);
 
