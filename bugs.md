@@ -1,5 +1,5 @@
 # Known Issues
-*in no order*
+*in no particular order*
 
 ## inventory drawing is crap
 >need to start from scratch
