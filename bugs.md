@@ -5,4 +5,4 @@
 >need to start from scratch
 
 ## selected zone not going null when no zone is selected
->easy fix
+>easy fix hopefully
