@@ -1,4 +1,4 @@
-package main;
+package database;
 
 public class DatabaseSingleton
 {

@@ -14,7 +14,6 @@ import main.Surface;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 

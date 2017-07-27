@@ -1,4 +1,6 @@
-package main;
+package database;
+
+import main.ErrorDlg;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

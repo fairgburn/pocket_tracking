@@ -1,5 +1,7 @@
 package main;
 
+import database.PostgresDB;
+
 import java.awt.*;
 import java.sql.ResultSet;
 import java.util.LinkedList;

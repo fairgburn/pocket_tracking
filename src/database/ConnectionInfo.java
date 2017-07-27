@@ -1,4 +1,4 @@
-package main; /**
+package database; /**
  * Marker interface for data structure containing connection parameters
  */
 

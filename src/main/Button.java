@@ -38,7 +38,7 @@ public class Button extends Region
 
         //// write text ////
         int font_size = (int)(this.height * 0.75); // pixels x 0.75 = font size (pt)
-        Font font = new Font(Settings.getInstance().get("button_font"), Font.BOLD, font_size);
+        Font font = new Font(SettingsReader.getInstance().get("font"), Font.BOLD, font_size);
         g.setFont(font);
         FontMetrics fm = g.getFontMetrics(font);
 

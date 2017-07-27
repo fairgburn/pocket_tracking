@@ -1,14 +1,14 @@
-package main;
+package database;
 
 import java.util.HashMap;
 
-class PostgresConnectionInfo implements ConnectionInfo
+public class PostgresConnectionInfo implements ConnectionInfo
 {
-    String _db;
-    String _host;
-    String _port;
-    String _username;
-    String _password;
+    private String _db;
+    private String _host;
+    private String _port;
+    private String _username;
+    private String _password;
 
 
     /***************
@@ -34,12 +34,12 @@ class PostgresConnectionInfo implements ConnectionInfo
 
     /**
      * copy constructor
-     * @param ci            a main.ConnectionInfo interface
+     * @param ci            a database.ConnectionInfo interface
      * @throws Exception    if ci.getType() != "postgresql"
      */
     public PostgresConnectionInfo(ConnectionInfo ci) throws Exception {
         if ( !ci.getType().equals("postgresql") ) {
-            throw new Exception("main.PostgresConnectionInfo: copy constructor: wrong type!");
+            throw new Exception("database.PostgresConnectionInfo: copy constructor: wrong type!");
         }
 
         HashMap<String, String> h = ci.getConnectionInfo();

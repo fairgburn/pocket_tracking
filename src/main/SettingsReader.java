@@ -4,19 +4,19 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class Settings
+public class SettingsReader
 {
     private Properties p = new Properties();
     private static String config_file_path = "config/config.ini";
 
     // Singleton instance
-    private static Settings self = new Settings(config_file_path);
-    public static Settings getInstance() {
+    private static SettingsReader self = new SettingsReader(config_file_path);
+    public static SettingsReader getInstance() {
         return self;
     }
 
 
-    private Settings(String s) {
+    private SettingsReader(String s) {
         try {
             FileInputStream fis = new FileInputStream(s);
             p.load(fis);

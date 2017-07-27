@@ -1,7 +1,5 @@
 package main;
 
-import java.io.OutputStream;
-
 public class Debug
 {
     private static boolean enabled = false;

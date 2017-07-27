@@ -1,5 +1,9 @@
 package main;
 
+import database.PostgresConnectionInfo;
+import database.PostgresDB;
+import globals.Globals;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
@@ -11,33 +15,26 @@ import java.awt.*;
 public class View extends JFrame
 {
 
-    Surface surface;
-    PostgresDB pdb = new PostgresDB();
-    Arguments arguments = null;
-    Settings config = null;
+    private Surface surface;
+    private PostgresDB pdb = new PostgresDB();
+    private Arguments arguments = null;
 
-    JPanel statusBar = new JPanel();
-    JLabel statusLabel = new JLabel();
+    private JPanel statusBar = new JPanel();
+    private JLabel statusLabel = new JLabel();
 
 
     public View(String[] args) {
 
+        // get global objects
+        Globals glob = Globals.getInstance();
+
         // enable debugging info
-        Debug.enable();
+        if (glob.debugEnable) Debug.enable();
 
         // parse command line arguments
         arguments = new Arguments(args);
 
-        // load configurations file
-        config = Settings.getInstance();
-
-        pdb.setConnectionInfo(new PostgresConnectionInfo(
-                config.get("database"),       // database name
-                config.get("host"),           // host
-                config.get("port"),           // port
-                config.get("user"),       // username
-                config.get("password")        // password
-        ));
+        pdb.setConnectionInfo(glob.connectionInfo);
 
         pdb.connect();
 
@@ -46,11 +43,11 @@ public class View extends JFrame
 
         this.setLayout(new BorderLayout());
 
-        // default size if window is moved
-        this.setSize(1280, 720);
+        // default size if reduced
+        this.setSize(glob.resolution.x, glob.resolution.y);
 
-        // start program maximized
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        // start program maximized depending on config
+        if (glob.startMaximized) this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         // put the main surface at the top
         surface = new Surface(this);
@@ -61,18 +58,16 @@ public class View extends JFrame
         // status bar (bottom of screen)
         statusBar = new JPanel();
         statusBar.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
-        statusBar.setPreferredSize(new Dimension(this.getWidth(), 20)); // size of panel
+        statusBar.setPreferredSize(new Dimension(this.getWidth(), glob.statusbarHeight)); // size of panel
         statusBar.setLayout(new BoxLayout(statusBar, BoxLayout.X_AXIS));
-        statusLabel.setText("testing status bar");
+
+        statusLabel.setFont(new Font(glob.font, Font.PLAIN, glob.statusbarTextSize));
         statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
         statusBar.add(statusLabel);
         add(statusBar, BorderLayout.SOUTH);
 
         // set the window title
-        setTitle(config.get("window_title"));
-
-        // can't remember what this does
-        //setLocationRelativeTo(null);
+        setTitle(glob.windowTitle);
 
         // just exit the program when user clicks on the x
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,7 +86,7 @@ public class View extends JFrame
 
     // update status bar
     public void setStatusText(String s) {
-        this.statusLabel.setText(s);
+        statusLabel.setText(s);
     }
 
 

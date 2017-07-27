@@ -12,7 +12,7 @@ package main;
  *
  * ***************************************************************/
 
-import driver.*;
+import database.PostgresDB;
 
 import javax.swing.*;
 import java.awt.*;

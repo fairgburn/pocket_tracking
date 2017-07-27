@@ -1,4 +1,4 @@
-package main;
+package database;
 
 /**
  * Created by acs on 7/7/17.
