@@ -1,6 +1,7 @@
 package main;
 
 import database.PostgresDB;
+import info.Debug;
 import info.Globals;
 
 import java.awt.*;
@@ -48,11 +49,25 @@ public class LinesRegion
         }
     }
 
+    // hand out references to the lines
+    public LinkedList<Line> getLinesList() {
+        return linesList;
+    }
+
 
 /** superclass **/
 
+    // TODO next
     @Override
     public void touch(Point p) {
+        if (!this.contains(p)) return;
+
+        Debug.log("lines region touched");
+
+        // extend touch to the lines
+        for (Line l : linesList) {
+            //l.touch(p);
+        }
 
     }
 

@@ -13,13 +13,11 @@ package main;
 
 
 import database.PostgresDB;
-import info.Debug;
+import driver.*;
 import info.FailureDlg;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
@@ -31,7 +29,7 @@ public class Surface extends JPanel
     private View view;
     private PostgresDB pdb;
     private int x_max, y_max;
-    private LinkedList<Line> lineList = new LinkedList<>();
+    private LinkedList<Line> linesList = new LinkedList<>();
     private LinkedList<Button> buttonList = new LinkedList<>();
 
     // used for copying
@@ -60,8 +58,10 @@ public class Surface extends JPanel
         cmdRegion = new CmdRegion();
 
         // read lines from database
+        // get reference to all the lines
         try {
             linesRegion.init(pdb);
+            this.linesList = linesRegion.getLinesList();
         } catch (SQLException e) {
             e.printStackTrace();
             FailureDlg.showError("error reading lines from database");
@@ -74,10 +74,15 @@ public class Surface extends JPanel
 
 
 
-        // connect the touch screen TODO
-        /*Driver ts = new TouchScreenDriver();
-        ts.connect(null);
-        ts.start(this);*/
+        // connect the touch screen to all the regions
+        Driver ts = new TouchScreenDriver();
+        Region[] ra = {
+                linesRegion,
+                countRegion,
+                cmdRegion
+        };
+        ts.connect(ra);
+        ts.start(this);
 
 /**********************************************************************************************************************/
 // TODO replace with TouchScreenDriver
@@ -86,7 +91,7 @@ public class Surface extends JPanel
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        addMouseListener(new MouseAdapter() {
+        /*addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
                 // only care about left click
@@ -97,7 +102,7 @@ public class Surface extends JPanel
                 // LINES REGION ////////////////////////////////////////////////////////////////////////////////////////
 
                 if (linesRegion.contains(p)) {
-                    for (Line l : lineList) {
+                    for (Line l : linesList) {
 
                         for (Zone z : l.getZoneList()) {
                             if (z.contains(p)) { // this zone was clicked
@@ -134,7 +139,7 @@ public class Surface extends JPanel
 
                 //------------------------------------------------------------------------------------------------------
             }
-        });
+        });*/
     }
 
     // draw the interface
