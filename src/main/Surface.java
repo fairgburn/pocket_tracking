@@ -72,9 +72,7 @@ public class Surface extends JPanel
         countRegion.attach(this);
         cmdRegion.attach(this);
 
-
-
-        // connect the touch screen to all the regions
+        // connect a touch screen driver for input
         Driver ts = new TouchScreenDriver();
         Region[] ra = {
                 linesRegion,
@@ -84,62 +82,6 @@ public class Surface extends JPanel
         ts.connect(ra);
         ts.start(this);
 
-/**********************************************************************************************************************/
-// TODO replace with TouchScreenDriver
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // handle left mouse clicks
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-        /*addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent mouseEvent) {
-                // only care about left click
-                if (mouseEvent.getButton() != 1) return;
-
-                Point p = mouseEvent.getPoint();
-
-                // LINES REGION ////////////////////////////////////////////////////////////////////////////////////////
-
-                if (linesRegion.contains(p)) {
-                    for (Line l : linesList) {
-
-                        for (Zone z : l.getZoneList()) {
-                            if (z.contains(p)) { // this zone was clicked
-                                // flip selected bit for zone that was clicked
-                                z.setSelected(!z.isSelected());
-                                Debug.log("user clicked LINE " + l.id);
-                                Debug.log(z);
-
-                                // store selected zone
-                                selectedZone = (z.isSelected()) ? z : selectedZone;
-                                repaint();
-
-                            } else { // this zone was not clicked
-
-                                // mark the zone unselected
-                                z.setSelected(false);
-                                repaint();
-                            }
-                        }
-                    }
-                }
-                //------------------------------------------------------------------------------------------------------
-
-
-                // COMMAND REGION //////////////////////////////////////////////////////////////////////////////////////
-                else if (cmdRegion.contains(p)) {
-
-                    for (Button b : buttonList) {
-                        if (b.contains(p))
-                            b.click();
-                    }
-
-                }
-
-                //------------------------------------------------------------------------------------------------------
-            }
-        });*/
     }
 
     // draw the interface
