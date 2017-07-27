@@ -1,6 +1,7 @@
 package main;
 
 import database.PostgresDB;
+import globals.Globals;
 
 import java.awt.*;
 import java.sql.ResultSet;
@@ -12,10 +13,10 @@ public class LinesRegion
 
 /** members and constructors **/
 
-    Surface surface = null;
-    Color color = new Color(169,54,61);
-    boolean attached = false;
-    LinkedList<Line> linesList = new LinkedList<>();
+    private Surface surface = null;
+    private Color backgroundColor = new Color(169,54,61);
+    private boolean attached = false;
+    private LinkedList<Line> linesList = new LinkedList<>();
 
     /***/
 
@@ -63,9 +64,71 @@ public class LinesRegion
 
     @Override
     public void draw(Graphics2D g) {
+        // fill in the background
+        Color oldColor = g.getColor();
+        g.setColor(backgroundColor);
+        super.fill(g);
 
+        int num_lines = linesList.size(); // number of lines
+        int line_spacing = (x_max - x) / (num_lines + 1); // draw lines evenly spaced out
+        int[] line_centers = new int[num_lines]; // array of those x coordinates
 
+        // build x coordinate array
+        for (int i = 1; i <= num_lines; i++) {
+            int x = i * line_spacing;
+            line_centers[i - 1] = x;
+        }
 
+        // here is where the lines actually get drawn // TODO: make use of line width/height from database
+        int counter = 0;
+        for (Line l : linesList) {
+
+            // set line region and draw it
+            int w = (this.width) / 6;
+            int h = (int) (this.height * 0.9); // lines are drawn to 90% of window height
+            int xx = line_centers[counter] - (w >> 1);
+            int yy = this.y + 25;
+            l.setRegion( new Region(xx, yy, w, h) );
+            l.draw(g); // draw zones and units
+
+            counter++;
+        }
+
+        // restore color
+        g.setColor(oldColor);
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

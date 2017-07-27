@@ -65,7 +65,7 @@ public class TouchScreenDriver
 
         // signal the clicked region
         for (Region r : regions) {
-            if (r.inRegion(p)) {
+            if (r.contains(p)) {
                 r.touch(p);
                 break;
             }
@@ -78,11 +78,11 @@ public class TouchScreenDriver
 
         // LINES REGION ////////////////////////////////////////////////////////////////////////////////////////
 
-        if (linesRegion.inRegion(p)) {
+        if (linesRegion.contains(p)) {
             for (Line l : lineList) {
 
                 for (Zone z : l.getZoneList()) {
-                    if (z.inRegion(p)) { // this zone was clicked
+                    if (z.contains(p)) { // this zone was clicked
                         // flip selected bit for zone that was clicked
                         z.setSelected(!z.isSelected());
                         Debug.log("user clicked LINE " + l.id);
@@ -105,10 +105,10 @@ public class TouchScreenDriver
 
 
         // COMMAND REGION //////////////////////////////////////////////////////////////////////////////////////
-        else if (cmdRegion.inRegion(p)) {
+        else if (cmdRegion.contains(p)) {
 
             for (Button b : buttonList) {
-                if (b.inRegion(p))
+                if (b.contains(p))
                     b.click();
             }
 

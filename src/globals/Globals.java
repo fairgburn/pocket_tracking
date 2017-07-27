@@ -32,6 +32,7 @@ public class Globals
     public int statusbarTextSize;
     public boolean startMaximized;
     public java.awt.Point resolution;
+    public int padding;
 
 
 /** access **/
@@ -56,7 +57,8 @@ public class Globals
         // debugging - turn on if setting is "on", "true", or "yes"
         debugEnable = config.get("debug_mode").equals("on");
 
-        /** advanced **/
+
+/** advanced **/
         boolean use_advanced_defaults = true;
         if (config.get("advanced_mode").equals("on")) {
             use_advanced_defaults = false;
@@ -66,6 +68,7 @@ public class Globals
                 startMaximized = config.get("start_maximized").equals("yes");
                 String[] _res = config.get("window_size").split("x");
                 resolution = new java.awt.Point(Integer.parseInt(_res[0]), Integer.parseInt(_res[1]));
+                padding = Integer.parseInt(config.get("padding"));
 
             } catch (NumberFormatException e) {
                 use_advanced_defaults = true; // use defaults if any error occurs

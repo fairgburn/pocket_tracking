@@ -1,11 +1,17 @@
 package main;
 
+import globals.Globals;
+
 import java.awt.*;
 import java.util.LinkedList;
 
 // container class - used to split surface into regions
 public class Region
 {
+    // project globals
+    Globals glob = Globals.getInstance();
+
+    // coordinates for drawing
     public int x;
     public int x_max;
     public int y;
@@ -13,15 +19,20 @@ public class Region
     public int width;
     public int height;
 
+    // cushion between outer border and drawn subregions
+    private int padding = glob.padding;
+
     // add subregions here (not enforced, only for convenience)
     private LinkedList<Region> subregions;
 
     /****/
+
     public Region(int x, int y, int width, int height) { update(x, y, width, height); }
 
     public Region(Region r) { this(r.x, r.y, r.width, r.height); }
 
     public Region() {}
+
     /****/
 
     public void update(int x, int y, int width, int height) {
@@ -38,7 +49,7 @@ public class Region
     }
 
     // check if point is in region
-    public boolean inRegion(Point p) {
+    public boolean contains(Point p) {
         int x = p.x;
         int y = p.y;
 
@@ -59,8 +70,10 @@ public class Region
 
     public void fill(Graphics2D g) { drawBorder(g, true); }
 
-/** Override **/
-    public void touch(Point p) {}
+/** Override these **/
+    public void touch(Point p) {
+        if (!contains(p)) return;
+    }
     public void attach(Surface s) {}
     public void draw(Graphics2D g) {}
 
