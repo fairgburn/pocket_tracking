@@ -1,6 +1,6 @@
 package database;
 
-import main.ErrorDlg;
+import info.FailureDlg;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -33,7 +33,7 @@ public class PostgresDB implements Database
         try {
             _conn = DriverManager.getConnection(_ci.getConnectionString(), h.get("username"), h.get("password"));
         } catch (Exception e) {
-            ErrorDlg.showError("Error connecting to database!");
+            FailureDlg.showError("Error connecting to database!");
             return false;
         }
 

@@ -2,7 +2,7 @@ package main;
 
 import java.awt.*;
 
-public class Button extends Region
+public abstract class Button extends Region
 {
     private Color backgroundColor = new Color(130, 185, 70);
     private Color borderColor = Color.black;
@@ -20,9 +20,9 @@ public class Button extends Region
 
     // handle a click on this button
     // to use:
-    //  - add a mouse listener
+    //  - add an input driver to the Surface and pass down screen touches to this button
     //  - override this function at button creation
-    public void click() {}
+    public abstract void click();
 
 
     public void draw(Graphics2D g) {

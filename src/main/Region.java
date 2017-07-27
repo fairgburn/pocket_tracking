@@ -1,6 +1,6 @@
 package main;
 
-import globals.Globals;
+import info.Globals;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -8,7 +8,7 @@ import java.util.LinkedList;
 // container class - used to split surface into regions
 public class Region
 {
-    // project globals
+    // project info
     Globals glob = Globals.getInstance();
 
     // coordinates for drawing

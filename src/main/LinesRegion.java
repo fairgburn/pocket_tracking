@@ -1,17 +1,20 @@
 package main;
 
 import database.PostgresDB;
-import globals.Globals;
+import info.Globals;
 
 import java.awt.*;
 import java.sql.ResultSet;
 import java.util.LinkedList;
 
+// TODO Decorator class for labelling lines/zones and drawing misc. objects
 public class LinesRegion
     extends Region
 {
 
 /** members and constructors **/
+
+    Globals glob = Globals.getInstance();
 
     private Surface surface = null;
     private Color backgroundColor = new Color(169,54,61);
@@ -31,22 +34,19 @@ public class LinesRegion
     public LinesRegion() {}
 
 
-
-
 /** methods **/
 
     // pull the lines from the database
     public void init(PostgresDB pdb) throws java.sql.SQLException {
+        linesList.clear();
         ResultSet rs = pdb.executeQuery("SELECT * FROM lines");
 
-        // iterate through the results
+        // iterate through the results and store them
         while (rs.next()) {
             Line l = new Line(rs.getInt("id"), rs.getInt("length"), rs.getInt("width"), rs.getInt("num_zones"));
             linesList.addLast(l);
         }
     }
-
-
 
 
 /** superclass **/
@@ -69,6 +69,7 @@ public class LinesRegion
         g.setColor(backgroundColor);
         super.fill(g);
 
+        // calculate where to draw the lines
         int num_lines = linesList.size(); // number of lines
         int line_spacing = (x_max - x) / (num_lines + 1); // draw lines evenly spaced out
         int[] line_centers = new int[num_lines]; // array of those x coordinates
@@ -79,16 +80,17 @@ public class LinesRegion
             line_centers[i - 1] = x;
         }
 
-        // here is where the lines actually get drawn // TODO: make use of line width/height from database
+        // draw the lines
+        // TODO: use line width/height from database
         int counter = 0;
         for (Line l : linesList) {
 
-            // set line region and draw it
-            int w = (this.width) / 6;
-            int h = (int) (this.height * 0.9); // lines are drawn to 90% of window height
-            int xx = line_centers[counter] - (w >> 1);
-            int yy = this.y + 25;
-            l.setRegion( new Region(xx, yy, w, h) );
+            // calculate the line's region and draw it
+            int lw = (this.width) / 6;
+            int lh = this.height - glob.padding;
+            int lx = line_centers[counter] - (lw >> 1);
+            int ly = this.y + 25;
+            l.setRegion( new Region(lx, ly, lw, lh) );
             l.draw(g); // draw zones and units
 
             counter++;

@@ -2,7 +2,7 @@
  * Global values for program-scope access
  */
 
-package globals;
+package info;
 
 import database.PostgresConnectionInfo;
 import main.SettingsReader;
@@ -39,7 +39,7 @@ public class Globals
     // only one Globals object
     public static Globals getInstance() { return self; }
     private Globals() {
-        // get globals from config.ini
+        // get info from config.ini
         SettingsReader config = SettingsReader.getInstance();
         connectionInfo = new PostgresConnectionInfo(
                 config.get("database"),

@@ -1,5 +1,7 @@
 package main;
 
+import info.FailureDlg;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -21,7 +23,7 @@ public class SettingsReader
             FileInputStream fis = new FileInputStream(s);
             p.load(fis);
         } catch (IOException e) {
-            ErrorDlg.showError("couldn't load " + config_file_path);
+            FailureDlg.showError("couldn't load " + config_file_path);
         }
     }
 

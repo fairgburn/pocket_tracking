@@ -1,5 +1,3 @@
-package main;
-
 /*****************************************************************
  * main.Surface class, GUI
  *  - extends JPanel
@@ -11,32 +9,33 @@ package main;
  * Brandon Fairburn 7/17
  *
  * ***************************************************************/
+package main;
+
 
 import database.PostgresDB;
+import info.Debug;
+import info.FailureDlg;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class Surface extends JPanel
 {
 
+/** members and constructors **/
 
     private View view;
     private PostgresDB pdb;
     private int x_max, y_max;
-    private int x_min, y_min;
-    private ResultSet rs;
     private LinkedList<Line> lineList = new LinkedList<>();
     private LinkedList<Button> buttonList = new LinkedList<>();
-    private int padding;
-    private Zone selectedZone = null;
 
-    // used for copy
+    // used for copying
+    private Zone selectedZone = null;
     private Zone clipboard = null;
 
     // regions of the screen
@@ -44,9 +43,11 @@ public class Surface extends JPanel
     private CountRegion countRegion;
     private CmdRegion cmdRegion;
 
-
     public Surface(View f) { init(f); }
-    public Surface() { this.view = null; }
+
+
+
+/** methods **/
 
 
     public void init(View f) {
@@ -63,7 +64,7 @@ public class Surface extends JPanel
             linesRegion.init(pdb);
         } catch (SQLException e) {
             e.printStackTrace();
-            ErrorDlg.showError("error reading lines from database");
+            FailureDlg.showError("error reading lines from database");
         }
 
         // attach regions to the Surface
@@ -136,6 +137,7 @@ public class Surface extends JPanel
         });
     }
 
+    // draw the interface
     private void compose(Graphics gg) {
         if (view == null)
             return;
@@ -144,7 +146,6 @@ public class Surface extends JPanel
         Rectangle r = view.getBounds();
         this.x_max = r.width;
         this.y_max = r.height;
-        this.padding = 100;
 
         // calculate bounds of regions based on window size
         linesRegion.update( 0, 0, (x_max * 2/3), y_max);
@@ -158,21 +159,9 @@ public class Surface extends JPanel
 
     }
 
-    /////////////////////////////
-    // button functions /////////
-    /////////////////////////////
+/** Superclass **/
 
-    // copy
-    void clickCopy() {
-        this.clipboard = this.selectedZone;
-        this.view.setStatusText("copied " + this.clipboard);
-    }
-
-    // paste
-    void clickPaste(Graphics2D g) {
-
-    }
-
+    // this function is triggered when the screen needs to be redrawn
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

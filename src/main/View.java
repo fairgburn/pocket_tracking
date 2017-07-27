@@ -1,8 +1,9 @@
 package main;
 
-import database.PostgresConnectionInfo;
 import database.PostgresDB;
-import globals.Globals;
+import info.Arguments;
+import info.Debug;
+import info.Globals;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
