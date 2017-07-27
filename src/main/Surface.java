@@ -60,7 +60,7 @@ public class Surface extends JPanel
 
         // read lines from database
         try {
-            linesRegion.setLines(pdb);
+            linesRegion.init(pdb);
         } catch (SQLException e) {
             e.printStackTrace();
             ErrorDlg.showError("error reading lines from database");

@@ -84,20 +84,3 @@ public class Globals
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -35,7 +35,7 @@ public class LinesRegion
 /** methods **/
 
     // pull the lines from the database
-    public void setLines(PostgresDB pdb) throws java.sql.SQLException {
+    public void init(PostgresDB pdb) throws java.sql.SQLException {
         ResultSet rs = pdb.executeQuery("SELECT * FROM lines");
 
         // iterate through the results
