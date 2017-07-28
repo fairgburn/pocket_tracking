@@ -82,8 +82,10 @@ public class CmdRegion
         // paste the unit from clipboard into selected zone (SQL)
         UnitInfo ui = surface.getClipboard();
         Zone sz = surface.getSelectedZone();
+        // empty string if null
+        String customer = (ui.customer == null) ? "" : ui.customer;
         String sql = "UPDATE inventory SET order_num=" + ui.order +
-                ", customer='" + ui.customer + "'" +
+                ", customer='" + customer + "'" +
                 ", width=" + ui.width +
                 ", length=" + ui.length +
                 " WHERE id=" + sz.getLineNum() + " AND " +
@@ -91,7 +93,6 @@ public class CmdRegion
 
         Debug.log(sql);
         surface.getDB().executeUpdate(sql);
-        surface.repaint();
     }
 
 /** superclass **/
@@ -140,6 +141,10 @@ public class CmdRegion
             give it a function. Or you could extend it, but that is probably
             overkill.
         */
+
+        // should do this more elegantly
+        // right now a new Button object is created every time the screen is drawn
+        buttonsList.clear();
 
         // make the copy button
         Button copyButton = new Button(

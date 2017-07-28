@@ -83,7 +83,7 @@ public class View extends JFrame
                 surface.updateInventory();
                 surface.repaint();
             }
-        }, 0, 1000);
+        }, 0, 500);
 
 
     }
