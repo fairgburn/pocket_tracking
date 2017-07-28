@@ -1,5 +1,7 @@
 package main;
 
+import info.Globals;
+
 import java.awt.*;
 
 public class CountRegion
@@ -8,8 +10,10 @@ public class CountRegion
 
 /** members and constructors **/
 
+    Globals glob = Globals.getInstance();
+
     Surface surface = null;
-    Color color = new Color(180, 124, 20);
+    Color color = glob.countColor;
     boolean attached = false;
 
     /***/

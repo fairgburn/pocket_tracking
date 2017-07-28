@@ -18,7 +18,7 @@ public class LinesRegion
     Globals glob = Globals.getInstance();
 
     private Surface surface = null;
-    private Color backgroundColor = new Color(169,54,61);
+    private Color backgroundColor = glob.linesColor;
     private boolean attached = false;
     private LinkedList<Line> linesList = new LinkedList<>();
 

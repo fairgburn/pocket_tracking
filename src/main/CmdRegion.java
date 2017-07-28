@@ -20,7 +20,7 @@ public class CmdRegion
 /** members and constructors **/
 
     private Surface surface = null;
-    private Color backgroundColor = new Color(54,119,169);
+    private Color backgroundColor = glob.cmdColor;
     private boolean attached = false;
     private LinkedList<Button> buttonsList = new LinkedList<>();
     private int padding = glob.padding;

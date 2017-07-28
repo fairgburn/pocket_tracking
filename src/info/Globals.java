@@ -30,9 +30,14 @@ public class Globals
     // status bar stuff
     public int statusbarHeight;
     public int statusbarTextSize;
+
+    // window settings
     public boolean startMaximized;
     public java.awt.Point resolution;
     public int padding;
+
+    // colors
+    public java.awt.Color linesColor, countColor, cmdColor;
 
 
 /** access **/
@@ -70,6 +75,25 @@ public class Globals
                 resolution = new java.awt.Point(Integer.parseInt(_res[0]), Integer.parseInt(_res[1]));
                 padding = Integer.parseInt(config.get("padding"));
 
+                // colors
+                String[] _col = config.get("bgcolor_lines").split(",");
+                linesColor = new java.awt.Color(
+                        Integer.parseInt(_col[0]),
+                        Integer.parseInt(_col[1]),
+                        Integer.parseInt(_col[2]));
+                _col = config.get("bgcolor_count").split(",");
+                countColor = new java.awt.Color(
+                        Integer.parseInt(_col[0]),
+                        Integer.parseInt(_col[1]),
+                        Integer.parseInt(_col[2]));
+                _col = config.get("bgcolor_cmd").split(",");
+                cmdColor = new java.awt.Color(
+                        Integer.parseInt(_col[0]),
+                        Integer.parseInt(_col[1]),
+                        Integer.parseInt(_col[2]));
+
+
+
             } catch (NumberFormatException e) {
                 use_advanced_defaults = true; // use defaults if any error occurs
             }
@@ -83,6 +107,12 @@ public class Globals
             statusbarTextSize = 18;
             startMaximized = true;
             resolution = new java.awt.Point(1280, 720);
+            padding = 100;
+
+            // colors
+            linesColor = new java.awt.Color(169, 54, 61);
+            countColor = new java.awt.Color(180, 124, 20);
+            cmdColor = new java.awt.Color(54, 119, 169);
         }
 
     }
