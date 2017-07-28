@@ -95,6 +95,26 @@ public class CmdRegion
         surface.getDB().executeUpdate(sql);
     }
 
+    // delete button clicked
+    // remove contents from zone (SQL)
+    private void delete() {
+        if (!attached) {
+            Debug.log("attempted to delete from unattached CmdRegion");
+            return;
+        }
+
+        // don't do anything if no zone is selected
+        if (surface.getSelectedZone() == null) return;
+
+        Zone z = surface.getSelectedZone();
+        // delete the unit
+        String sql = "UPDATE inventory SET order_num=0, customer='', width=0, length=0 " +
+                "WHERE id=" + z.getLineNum() +
+                " AND zone=" + z.getZoneNum();
+        surface.getDB().executeUpdate(sql);
+        surface.getSelectedZone().setUnit(null);
+    }
+
 /** superclass **/
 
     // received a signal from an input driver
@@ -225,7 +245,7 @@ public class CmdRegion
                 button_size,
                 "DELETE") {
             @Override
-            public void click() { copy(); }
+            public void click() { delete(); }
 
         };
         deleteButton.draw(g);
