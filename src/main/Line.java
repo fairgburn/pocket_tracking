@@ -1,9 +1,12 @@
 package main;
 
+import database.PostgresDB;
+
 import java.awt.*;
 import java.sql.ResultSet;
 import java.util.LinkedList;
 
+// TODO clean up and extend Region
 public class Line
 {
     int id;
@@ -13,7 +16,7 @@ public class Line
     private Unit inventory;
 
     Region region = null;
-
+    private Surface surface;
     private LinkedList<Zone> zoneList = new LinkedList<>();
     private boolean zones_added = false;
 
@@ -49,9 +52,10 @@ public class Line
 
             if (create_new) {
                 zoneList.addLast(z);
+                z.attach(surface);
             } else {
                 zoneList.get(i).update(z);
-                zoneList.get(i).setZoneNum(i);
+                zoneList.get(i).setZoneNum(i+1);
             }
         }
     }
@@ -69,15 +73,20 @@ public class Line
         }
     }
 
-
-    public LinkedList<Zone> getZoneList() {
-        return this.zoneList;
+    public void touch(Point p) {
+        for (Zone z : zoneList) {
+            z.touch(p);
+        }
     }
 
-    public void setInventory(ResultSet r) {
+    public void attach(Surface s) {
+        this.surface = s;
+    }
+
+    public void setInventory(PostgresDB pdb) {
         // see if there is anything in line
         try {
-
+            ResultSet r = pdb.executeQuery("SELECT * FROM inventory WHERE id=" + this.id);
             while (r.next()) {
                 // get unit info
                 UnitInfo unitInfo = new UnitInfo(

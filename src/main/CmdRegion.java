@@ -1,5 +1,6 @@
 package main;
 
+import database.PostgresConnectionInfo;
 import info.Debug;
 import info.Globals;
 
@@ -40,17 +41,28 @@ public class CmdRegion
 
 /** methods **/
 
-
+    // copy button clicked
+    // save the selected zone to clipboard
     private void copy() {
         // need attachment to surface to see selected zone
         if (!attached) {
             Debug.log("attempted to copy from unattached CmdRegion");
             return;
         }
-
+        surface.setStatusText("copy");
         //Zone zone = surface.get
     }
 
+    // paste button clicked
+    // put clipboard contents in selected zone
+    private void paste() {
+        // need attachment to surface to see selected zone
+        if (!attached) {
+            Debug.log("attempted to paste from unattached CmdRegion");
+        }
+
+        surface.setStatusText("paste");
+    }
 
 /** superclass **/
 
@@ -59,7 +71,10 @@ public class CmdRegion
     public void touch(Point p) {
         if (!super.contains(p)) return;
 
-
+        // send click signal to buttons
+        for (Button b : buttonsList) {
+            if (b.contains(p)) b.click();
+        }
     }
 
     // attach this region to the Surface above it
@@ -78,7 +93,7 @@ public class CmdRegion
         super.fill(g);
 
         int num_buttons = 2; // so we can change this later
-        int button_width = ((this.x_max - this.x) / (num_buttons + 1));
+        int button_width = ((this.x_max - this.x) / (num_buttons + 1)) - (padding >> 1);
         int button_height = this.height / 10;
 
         // get button centers
@@ -112,14 +127,14 @@ public class CmdRegion
 
         // make the paste button
         Button pasteButton = new Button(
-                button_centers[0] - (button_width >> 1),
+                button_centers[1] - (button_width >> 1),
                 this.y_max - padding - button_height,
                 button_width,
                 button_height,
-                "COPY") {
+                "PASTE") {
             @Override
             public void click() {
-                copy();
+                paste();
             }
         };
         pasteButton.draw(g);

@@ -60,13 +60,14 @@ public class LinesRegion
     // TODO next
     @Override
     public void touch(Point p) {
-        if (!this.contains(p)) return;
+        // ignore touch if it was in another region
+        if (!super.contains(p)) return;
 
         Debug.log("lines region touched");
 
         // extend touch to the lines
         for (Line l : linesList) {
-            //l.touch(p);
+            l.touch(p);
         }
 
     }
@@ -75,6 +76,9 @@ public class LinesRegion
     public void attach(Surface s) {
         surface = s;
         attached = true;
+
+        // also attach all the lines
+        for (Line l : linesList) l.attach(surface);
     }
 
     @Override

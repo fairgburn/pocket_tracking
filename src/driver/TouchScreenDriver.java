@@ -60,7 +60,7 @@ public class TouchScreenDriver
         // figure out where screen was clicked
         Point p = mouseEvent.getPoint();
 
-        // send a touch signal
+        // send a touch signal to all connected regions
         for (Region r : regions) {
             r.touch(p);
         }

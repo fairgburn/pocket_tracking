@@ -8,6 +8,7 @@ public class Zone extends Region
 
 /** members **/
 
+    private  Surface surface = null;
     private Color backgroundColor = new Color(200, 200, 200);
     private Color borderColor = Color.black;
     private int zone_num = 0;
@@ -47,12 +48,20 @@ public class Zone extends Region
 /** Superclass **/
 
     @Override
-    public String toString() {
-        return "((ZONE " + zone_num + "))\n" +
-                "x: " + this.x + "\n" +
-                "y: " + this.y + "\n" +
-                "width: " + this.width + "\n" +
-                "height: " + this.height + "\n";
+    public void touch(Point p) {
+        if (!super.contains(p)) {
+            selected = false;
+        } else {
+            selected = !selected;
+        }
+
+        surface.repaint();
+
+    }
+
+    @Override
+    public void attach(Surface s) {
+        this.surface = s;
     }
 
     @Override
@@ -68,6 +77,13 @@ public class Zone extends Region
         g.setColor(oldColor);
     }
 
-
+    @Override
+    public String toString() {
+        return "((ZONE " + zone_num + "))\n" +
+                "x: " + this.x + "\n" +
+                "y: " + this.y + "\n" +
+                "width: " + this.width + "\n" +
+                "height: " + this.height + "\n";
+    }
 
 }

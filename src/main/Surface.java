@@ -84,6 +84,11 @@ public class Surface extends JPanel
 
     }
 
+    // update the statusbar message
+    public void setStatusText(String s) {
+        view.setStatusText(s);
+    }
+
     // draw the interface
     private void compose(Graphics gg) {
         if (view == null)
