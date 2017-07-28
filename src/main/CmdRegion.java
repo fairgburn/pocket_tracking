@@ -123,16 +123,31 @@ public class CmdRegion
         g.setColor(backgroundColor);
         super.fill(g);
 
-        int num_buttons = 2; // so we can change this later
+        int num_buttons = 3; // so we can change this later
         int button_width = ((this.x_max - this.x) / (num_buttons + 1)) - (padding >> 1);
         int button_height = this.height / 10;
+
+
+        /******************************
 
         // get button centers
         int button_spacing = (this.x_max - this.x) / (num_buttons + 1);
         int[] button_centers = new int[num_buttons];
         for (int i = 1; i <= num_buttons; i++) {
-            int x = i * button_spacing + this.x;
-            button_centers[i - 1] = x;
+            int bx = i * button_spacing + this.x;
+            button_centers[i - 1] = bx;
+        }
+
+        **********************/
+
+        /** draw buttons as square in a vertical line **/
+
+        int button_size = (this.height / num_buttons) - (glob.padding >> 1);
+        int button_spacing = this.height / (num_buttons + 1);
+        int[] button_y_arr = new int[num_buttons];
+        for (int i = 1; i <= num_buttons; i++) {
+            int by = i * button_spacing + this.y;
+            button_y_arr[i - 1] = by - (button_size >> 1);
         }
 
 
@@ -147,7 +162,7 @@ public class CmdRegion
         buttonsList.clear();
 
         // make the copy button
-        Button copyButton = new Button(
+        /**Button copyButton = new Button(
                 button_centers[0] - (button_width >> 1),
                 this.y_max - padding - button_height,
                 button_width,
@@ -173,7 +188,48 @@ public class CmdRegion
             }
         };
         pasteButton.draw(g);
+        buttonsList.addLast(pasteButton);**/
+
+        int button_x = this.x + (this.width >> 1) - (button_size >> 1);
+
+        Button copyButton = new Button(
+                button_x,
+                button_y_arr[0] ,
+                button_size,
+                button_size,
+                "COPY") {
+            @Override
+            public void click() { copy(); }
+
+        };
+        copyButton.draw(g);
+        buttonsList.addLast(copyButton);
+
+        Button pasteButton = new Button(
+                button_x,
+                button_y_arr[1] ,
+                button_size,
+                button_size,
+                "PASTE") {
+            @Override
+            public void click() { paste(); }
+
+        };
+        pasteButton.draw(g);
         buttonsList.addLast(pasteButton);
+
+        Button deleteButton = new Button(
+                button_x,
+                button_y_arr[2] ,
+                button_size,
+                button_size,
+                "DELETE") {
+            @Override
+            public void click() { copy(); }
+
+        };
+        deleteButton.draw(g);
+        buttonsList.addLast(deleteButton);
 
 
     }

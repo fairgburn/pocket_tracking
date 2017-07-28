@@ -63,7 +63,6 @@ public class LinesRegion
 
 /** superclass **/
 
-    // TODO next
     @Override
     public void touch(Point p) {
         // ignore touch if it was in another region
@@ -126,36 +125,3 @@ public class LinesRegion
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

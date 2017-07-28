@@ -44,7 +44,7 @@ public abstract class Button extends Region
 
         //// write text ////
         int font_size = (int)(this.height * 0.75); // pixels x 0.75 = font size (pt)
-        Font font = new Font(glob.font, Font.BOLD, font_size);
+        Font font = new Font(glob.font, Font.BOLD, 35);
         g.setFont(font);
         FontMetrics fm = g.getFontMetrics(font);
 
