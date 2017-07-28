@@ -49,8 +49,9 @@ public class CmdRegion
             Debug.log("attempted to copy from unattached CmdRegion");
             return;
         }
-        surface.setStatusText("copy");
-        //Zone zone = surface.get
+
+        surface.setClipboard( surface.getSelectedZone() );
+        surface.setStatusText("copied zone " + surface.getClipboard());
     }
 
     // paste button clicked

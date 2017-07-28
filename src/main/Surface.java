@@ -29,8 +29,6 @@ public class Surface extends JPanel
     private View view;
     private PostgresDB pdb;
     private int x_max, y_max;
-    private LinkedList<Line> linesList = new LinkedList<>();
-    private LinkedList<Button> buttonList = new LinkedList<>();
 
     // used for copying
     private Zone selectedZone = null;
@@ -61,7 +59,6 @@ public class Surface extends JPanel
         // get reference to all the lines
         try {
             linesRegion.init(pdb);
-            this.linesList = linesRegion.getLinesList();
         } catch (SQLException e) {
             e.printStackTrace();
             FailureDlg.showError("error reading lines from database");
@@ -87,6 +84,26 @@ public class Surface extends JPanel
     // update the statusbar message
     public void setStatusText(String s) {
         view.setStatusText(s);
+    }
+
+    /** copying/pasting zones **/
+
+    // change the selected zone
+    public void setSelectedZone(Zone z) {
+        selectedZone = z;
+    }
+
+    // get the selected zone
+    public Zone getSelectedZone() {
+        return selectedZone;
+    }
+
+    public void setClipboard(Zone z) {
+        this.clipboard = z;
+    }
+
+    public Zone getClipboard() {
+        return clipboard;
     }
 
     // draw the interface

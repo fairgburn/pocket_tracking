@@ -15,7 +15,7 @@ public class Line
     int num_zones;
     private Unit inventory;
 
-    Region region = null;
+    private Region region = null;
     private Surface surface;
     private LinkedList<Zone> zoneList = new LinkedList<>();
     private boolean zones_added = false;
@@ -45,6 +45,7 @@ public class Line
         for (int i = 0 ; i < num_zones ; i++) {
             int zone_height = region.height / num_zones;
             Zone z = new Zone(region.x, ( region.y + (i * zone_height) ), region.width, zone_height, i + 1);
+            z.setLineNum(this.id);
             //z.setZoneNum(i+1);
 
             // zone inventory
@@ -55,9 +56,16 @@ public class Line
                 z.attach(surface);
             } else {
                 zoneList.get(i).update(z);
+                zoneList.get(i).setLineNum(this.id);
                 zoneList.get(i).setZoneNum(i+1);
             }
         }
+    }
+
+    public void updateInventory(PostgresDB pdb) {
+        ResultSet rs = pdb.executeQuery("SELECT * FROM inventory WHERE id=" + this.id);
+
+        //
     }
 
     public void draw(Graphics2D g) {
@@ -77,6 +85,7 @@ public class Line
         for (Zone z : zoneList) {
             z.touch(p);
         }
+        surface.repaint();
     }
 
     public void attach(Surface s) {

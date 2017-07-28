@@ -12,6 +12,7 @@ public class Zone extends Region
     private Color backgroundColor = new Color(200, 200, 200);
     private Color borderColor = Color.black;
     private int zone_num = 0;
+    private int line_num;
 
     // inventory held by this zone
     private Unit unit = null;
@@ -32,6 +33,8 @@ public class Zone extends Region
 
     public void setZoneNum(int num) { this.zone_num = num; }
 
+    public void setLineNum(int num) { line_num = num; }
+
     public int getZoneNum() {
         return this.zone_num;
     }
@@ -49,14 +52,23 @@ public class Zone extends Region
 
     @Override
     public void touch(Point p) {
+        // not me that was clicked, make sure I'm unselected
         if (!super.contains(p)) {
+            if (surface.getSelectedZone() == this) {
+                surface.setSelectedZone(null);
+            }
             selected = false;
-        } else {
-            selected = !selected;
         }
 
-        surface.repaint();
+        // I was clicked, handle that
+        else {
+            // flip the selection bit
+            selected = !selected;
 
+            // set the selected zone
+            if (!selected) surface.setSelectedZone(null); // I was unselected
+            else surface.setSelectedZone(this); // I was selected
+        }
     }
 
     @Override
