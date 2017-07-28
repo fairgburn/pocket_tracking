@@ -1,11 +1,15 @@
 package main;
 
+import info.Globals;
 import info.SettingsReader;
 
 import java.awt.*;
 
 public abstract class Button extends Region
 {
+
+    Globals glob = Globals.getInstance();
+
     private Color backgroundColor = new Color(130, 185, 70);
     private Color borderColor = Color.black;
     private String text = "button";
@@ -40,7 +44,7 @@ public abstract class Button extends Region
 
         //// write text ////
         int font_size = (int)(this.height * 0.75); // pixels x 0.75 = font size (pt)
-        Font font = new Font(SettingsReader.getInstance().get("font"), Font.BOLD, font_size);
+        Font font = new Font(glob.font, Font.BOLD, font_size);
         g.setFont(font);
         FontMetrics fm = g.getFontMetrics(font);
 

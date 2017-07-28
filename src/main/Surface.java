@@ -15,7 +15,6 @@ package main;
 import database.PostgresDB;
 import driver.Driver;
 import driver.TouchScreenDriver;
-import info.Debug;
 import info.FailureDlg;
 
 import javax.swing.*;
