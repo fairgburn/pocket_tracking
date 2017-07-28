@@ -65,6 +65,7 @@ public class Line
     }
 
     // check the database for inventory
+    // runs on a timer in the View class
     public void updateInventory(PostgresDB pdb) {
         ResultSet rs = pdb.executeQuery("SELECT * FROM inventory WHERE id=" + this.id);
 
@@ -121,37 +122,6 @@ public class Line
 
     public void attach(Surface s) {
         this.surface = s;
-    }
-
-    public void setInventory(PostgresDB pdb) {
-        // see if there is anything in line
-        try {
-            ResultSet r = pdb.executeQuery("SELECT * FROM inventory WHERE id=" + this.id);
-            while (r.next()) {
-                // get unit info
-                UnitInfo unitInfo = new UnitInfo(
-                        r.getInt("order_num"),
-                        r.getString("customer"),
-                        r.getInt("width"),
-                        r.getInt("length"));
-
-                // put inventory in zone
-                int z_num = r.getInt("zone");
-                for(Zone zone : zoneList) {
-                    if (zone.getZoneNum() == z_num) {
-                        // set inventory for zone (null for empty)
-                        Unit u = null;
-                        if (unitInfo.order != 0)
-                            u = new Unit(unitInfo);
-                        zone.setUnit(u);
-                        break;
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 
