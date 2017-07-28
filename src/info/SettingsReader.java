@@ -1,6 +1,4 @@
-package main;
-
-import info.FailureDlg;
+package info;
 
 import java.io.FileInputStream;
 import java.io.IOException;

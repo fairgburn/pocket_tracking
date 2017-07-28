@@ -3,8 +3,6 @@ package driver;
 
 import main.Region;
 
-import java.util.List;
-
 public interface Driver
 {
     // make connections to driver

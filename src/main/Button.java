@@ -1,5 +1,7 @@
 package main;
 
+import info.SettingsReader;
+
 import java.awt.*;
 
 public abstract class Button extends Region

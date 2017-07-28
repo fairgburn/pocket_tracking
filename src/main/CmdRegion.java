@@ -1,6 +1,5 @@
 package main;
 
-import database.PostgresConnectionInfo;
 import info.Debug;
 import info.Globals;
 
@@ -50,8 +49,17 @@ public class CmdRegion
             return;
         }
 
-        surface.setClipboard( surface.getSelectedZone() );
-        surface.setStatusText("copied zone " + surface.getClipboard());
+        // if a zone is selected, copy its unit
+        //
+        // if no zone is selected or the selected zone has nothing in it,
+        //   a NullPointerException will be thrown - catch this and set
+        //   clipboard to null
+        try {
+            surface.setClipboard(surface.getSelectedZone().getUnit().getInfo());
+        } catch (NullPointerException e) {
+            surface.setClipboard(null);
+        }
+
     }
 
     // paste button clicked
@@ -60,9 +68,30 @@ public class CmdRegion
         // need attachment to surface to see selected zone
         if (!attached) {
             Debug.log("attempted to paste from unattached CmdRegion");
+            return;
         }
 
-        surface.setStatusText("paste");
+        if (surface.getSelectedZone() == null) {
+            Debug.log("attempted to paste but no zone is selected");
+            return;
+        }
+
+        // don't do this if clipboard is empty
+        if (surface.getClipboard() == null) return;
+
+        // paste the unit from clipboard into selected zone (SQL)
+        UnitInfo ui = surface.getClipboard();
+        Zone sz = surface.getSelectedZone();
+        String sql = "UPDATE inventory SET order_num=" + ui.order +
+                ", customer='" + ui.customer + "'" +
+                ", width=" + ui.width +
+                ", length=" + ui.length +
+                " WHERE id=" + sz.getLineNum() + " AND " +
+                " zone=" + sz.getZoneNum();
+
+        Debug.log(sql);
+        surface.getDB().executeUpdate(sql);
+        surface.repaint();
     }
 
 /** superclass **/

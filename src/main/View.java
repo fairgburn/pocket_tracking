@@ -9,6 +9,8 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -72,6 +74,16 @@ public class View extends JFrame
 
         // just exit the program when user clicks on the x
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // timer for inventory updates
+        Timer t = new Timer();
+        t.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                surface.updateInventory();
+                surface.repaint();
+            }
+        }, 0, 1000);
 
 
     }

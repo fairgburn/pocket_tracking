@@ -35,6 +35,8 @@ public class Zone extends Region
 
     public void setLineNum(int num) { line_num = num; }
 
+    public int getLineNum() { return this.line_num; }
+
     public int getZoneNum() {
         return this.zone_num;
     }
@@ -44,7 +46,14 @@ public class Zone extends Region
 
 
     public void setUnit(Unit u) {
-        this.unit = u;
+        unit = u;
+
+        if (unit != null)
+            unit.setZone(this); // this makes the unit draw slightly smaller than the parent zone
+    }
+
+    public Unit getUnit() {
+        return unit;
     }
 
 
@@ -85,6 +94,9 @@ public class Zone extends Region
 
         g.setColor(borderColor);
         super.drawBorder(g);
+
+        // draw the unit if the zone has one
+        if (unit != null) unit.draw(g);
 
         g.setColor(oldColor);
     }

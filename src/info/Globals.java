@@ -5,7 +5,6 @@
 package info;
 
 import database.PostgresConnectionInfo;
-import main.SettingsReader;
 
 public class Globals
 {

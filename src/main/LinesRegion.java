@@ -49,6 +49,12 @@ public class LinesRegion
         }
     }
 
+    public void updateInventory(PostgresDB pdb) {
+        for (Line l : linesList) {
+            l.updateInventory(pdb);
+        }
+    }
+
     // hand out references to the lines
     public LinkedList<Line> getLinesList() {
         return linesList;

@@ -13,13 +13,14 @@ package main;
 
 
 import database.PostgresDB;
-import driver.*;
+import driver.Driver;
+import driver.TouchScreenDriver;
+import info.Debug;
 import info.FailureDlg;
 
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
-import java.util.LinkedList;
 
 public class Surface extends JPanel
 {
@@ -32,7 +33,7 @@ public class Surface extends JPanel
 
     // used for copying
     private Zone selectedZone = null;
-    private Zone clipboard = null;
+    private UnitInfo clipboard = null;
 
     // regions of the screen
     private LinesRegion linesRegion;
@@ -98,12 +99,24 @@ public class Surface extends JPanel
         return selectedZone;
     }
 
-    public void setClipboard(Zone z) {
-        this.clipboard = z;
+    public void setClipboard(UnitInfo ui) {
+        this.clipboard = ui;
     }
 
-    public Zone getClipboard() {
+    public UnitInfo getClipboard() {
         return clipboard;
+    }
+
+    public PostgresDB getDB() {
+        return pdb;
+    }
+
+    /** inventory tracking functions **/
+
+    // check for inventory updates
+    // this is executed on a timer by the View class
+    public void updateInventory() {
+        linesRegion.updateInventory(pdb);
     }
 
     // draw the interface
