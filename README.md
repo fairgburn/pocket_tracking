@@ -23,10 +23,10 @@
 ## Installation and Running ##
 Download the latest release from *`release/`* in the repo and extract the archive.  
 [*Set up a PostgreSQL server*](https://www.postgresql.org/docs/9.1/static/runtime.html) and make an empty database called `pt-db`  
-Run `setup.py` configured for the database server (`setup.py --help` for usage)  
+Run `setup.py` configured for the database server (`setup.py -h` for usage)  
 Move the program folder wherever you like and execute the run script (`run.bat` on Windows, `run.sh` on Linux/Mac).
 
-Configuration files are located in the directory *`config/`*
+Configuration files are located in *`config/`*
 
 - `config.ini` - general settings
 - `lines.tsv` - line definitions (line ID, width, length, etc.)
@@ -46,3 +46,4 @@ Alternatively you can use something like Excel to make this file by making a nor
 >*in Excel, the quotes in the file name are required so it doesn't append `.txt` to your file name*
 
 
+> and this is a test line for the branch!
