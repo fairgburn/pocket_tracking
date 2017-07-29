@@ -55,7 +55,7 @@ linedefs_path = clargs['line_defs']
 
 # display a warning if user is not forcing the run
 if not clargs['force']:
-    leave = input('WARNING: this will irrevocably change the database. Continue? (y/n) ')
+    leave = input('WARNING: this will change the database and cannot be undone. Continue? (y/n) ')
     if leave.lower() not in ('y', 'yes'):
         exit(0)
 
