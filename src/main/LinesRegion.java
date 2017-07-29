@@ -1,7 +1,6 @@
 package main;
 
 import database.PostgresDB;
-import info.Debug;
 import info.Globals;
 
 import java.awt.*;

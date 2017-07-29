@@ -108,7 +108,8 @@ public class CmdRegion
 
         Zone z = surface.getSelectedZone();
         // delete the unit
-        String sql = "UPDATE inventory SET order_num=0, customer='', width=0, length=0 " +
+        // only need to set order_num=0 (order_num > 0 is how we check for inventory)
+        String sql = "UPDATE inventory SET order_num=0 " + //, customer='', width=0, length=0 " +
                 "WHERE id=" + z.getLineNum() +
                 " AND zone=" + z.getZoneNum();
         surface.getDB().executeUpdate(sql);

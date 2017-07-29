@@ -1,7 +1,6 @@
 package main;
 
 import info.Globals;
-import info.SettingsReader;
 
 import java.awt.*;
 
