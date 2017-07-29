@@ -35,6 +35,8 @@ public class InfoRegion
 /** methods **/
 
     private void print(Graphics2D g, String s, int face, int size) {
+        if (s == null) s = "none";
+
         Font font = new Font(glob.font, face, size);
         g.setColor(Color.black);
         g.setFont(font);

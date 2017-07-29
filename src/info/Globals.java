@@ -31,7 +31,7 @@ public class Globals
     public int statusbarTextSize;
 
     // window settings
-    public boolean startMaximized;
+    public boolean startFullscreen;
     public java.awt.Point resolution;
     public int padding;
 
@@ -69,7 +69,7 @@ public class Globals
             try {
                 statusbarHeight = Integer.parseInt(config.get("statusbar_height"));
                 statusbarTextSize = Integer.parseInt(config.get("statusbar_text_size"));
-                startMaximized = config.get("start_maximized").equals("yes");
+                startFullscreen = config.get("start_fullscreen").equals("yes");
                 String[] _res = config.get("window_size").split("x");
                 resolution = new java.awt.Point(Integer.parseInt(_res[0]), Integer.parseInt(_res[1]));
                 padding = Integer.parseInt(config.get("padding"));
@@ -104,7 +104,7 @@ public class Globals
         if (use_advanced_defaults) {
             statusbarHeight = 25;
             statusbarTextSize = 18;
-            startMaximized = true;
+            startFullscreen = true;
             resolution = new java.awt.Point(1280, 720);
             padding = 100;
 

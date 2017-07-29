@@ -53,7 +53,10 @@ public class View extends JFrame
         this.setSize(glob.resolution.x, glob.resolution.y);
 
         // start program maximized depending on config
-        if (glob.startMaximized) this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        if (glob.startFullscreen) {
+            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            this.setUndecorated(true);
+        }
 
         // put the main surface at the top
         surface = new Surface(this);

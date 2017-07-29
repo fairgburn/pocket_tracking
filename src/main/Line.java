@@ -124,27 +124,4 @@ public class Line
         this.surface = s;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
