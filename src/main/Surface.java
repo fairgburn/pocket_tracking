@@ -36,7 +36,7 @@ public class Surface extends JPanel
 
     // regions of the screen
     private LinesRegion linesRegion;
-    private CountRegion countRegion;
+    private InfoRegion infoRegion;
     private CmdRegion cmdRegion;
 
     public Surface(View f) { init(f); }
@@ -52,7 +52,7 @@ public class Surface extends JPanel
 
         // initialize regions
         linesRegion = new LinesRegion();
-        countRegion = new CountRegion();
+        infoRegion = new InfoRegion();
         cmdRegion = new CmdRegion();
 
         // read lines from database
@@ -66,14 +66,14 @@ public class Surface extends JPanel
 
         // attach regions to the Surface
         linesRegion.attach(this);
-        countRegion.attach(this);
+        infoRegion.attach(this);
         cmdRegion.attach(this);
 
         // connect a touch screen driver for input
         Driver ts = new TouchScreenDriver();
         Region[] ra = {
                 linesRegion,
-                countRegion,
+                infoRegion,
                 cmdRegion
         };
         ts.connect(ra);
@@ -130,12 +130,12 @@ public class Surface extends JPanel
 
         // calculate bounds of regions based on window size
         linesRegion.update( 0, 0, (x_max * 2/3), y_max);
-        countRegion.update( linesRegion.x_max, 0, (x_max - linesRegion.x_max), (y_max >> 1) );
-        cmdRegion.update( linesRegion.x_max, countRegion.y_max, countRegion.width, (y_max - countRegion.height) );
+        infoRegion.update( linesRegion.x_max, 0, (x_max - linesRegion.x_max), (y_max >> 1) );
+        cmdRegion.update( linesRegion.x_max, infoRegion.y_max, infoRegion.width, (y_max - infoRegion.height) );
 
         // draw the regions individually
         linesRegion.draw(g);
-        countRegion.draw(g);
+        infoRegion.draw(g);
         cmdRegion.draw(g);
 
     }
