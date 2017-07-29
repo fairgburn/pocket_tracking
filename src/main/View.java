@@ -76,6 +76,7 @@ public class View extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // timer for inventory updates
+        // runs every half second
         Timer t = new Timer();
         t.scheduleAtFixedRate(new TimerTask() {
             @Override

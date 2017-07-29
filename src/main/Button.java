@@ -30,7 +30,7 @@ public abstract class Button extends Region
     //  - override this function at button creation
     public abstract void click();
 
-
+    @Override
     public void draw(Graphics2D g) {
         Color oldColor = g.getColor();
 

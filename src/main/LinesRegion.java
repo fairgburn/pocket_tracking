@@ -68,8 +68,6 @@ public class LinesRegion
         // ignore touch if it was in another region
         if (!super.contains(p)) return;
 
-        Debug.log("lines region touched");
-
         // extend touch to the lines
         for (Line l : linesList) {
             l.touch(p);

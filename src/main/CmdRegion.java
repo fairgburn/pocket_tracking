@@ -144,23 +144,8 @@ public class CmdRegion
         super.fill(g);
 
         int num_buttons = 3; // so we can change this later
-        int button_width = ((this.x_max - this.x) / (num_buttons + 1)) - (padding >> 1);
-        int button_height = this.height / 10;
 
-
-        /******************************
-
-        // get button centers
-        int button_spacing = (this.x_max - this.x) / (num_buttons + 1);
-        int[] button_centers = new int[num_buttons];
-        for (int i = 1; i <= num_buttons; i++) {
-            int bx = i * button_spacing + this.x;
-            button_centers[i - 1] = bx;
-        }
-
-        **********************/
-
-        /** draw buttons as square in a vertical line **/
+        /** draw buttons as squares in a vertical line **/
 
         int button_size = (this.height / num_buttons) - (glob.padding >> 1);
         int button_spacing = this.height / (num_buttons + 1);
@@ -181,35 +166,7 @@ public class CmdRegion
         // right now a new Button object is created every time the screen is drawn
         buttonsList.clear();
 
-        // make the copy button
-        /**Button copyButton = new Button(
-                button_centers[0] - (button_width >> 1),
-                this.y_max - padding - button_height,
-                button_width,
-                button_height,
-                "COPY") {
-            @Override
-            public void click() { copy(); }
-
-        };
-        copyButton.draw(g);
-        buttonsList.addLast(copyButton);
-
-        // make the paste button
-        Button pasteButton = new Button(
-                button_centers[1] - (button_width >> 1),
-                this.y_max - padding - button_height,
-                button_width,
-                button_height,
-                "PASTE") {
-            @Override
-            public void click() {
-                paste();
-            }
-        };
-        pasteButton.draw(g);
-        buttonsList.addLast(pasteButton);**/
-
+        // draw the buttons in the middle of the region
         int button_x = this.x + (this.width >> 1) - (button_size >> 1);
 
         Button copyButton = new Button(

@@ -1,8 +1,4 @@
 # Known Issues
-*in no particular order*
+<small>*in no particular order*</small>
 
-### inventory drawing is crap
->need to start from scratch
-
-### selected zone not going null when no zone is selected
->easy fix hopefully
+none :)
