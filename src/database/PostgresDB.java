@@ -1,6 +1,5 @@
 package database;
 
-import info.Debug;
 import info.FailureDlg;
 
 import java.sql.Connection;
@@ -43,7 +42,6 @@ public class PostgresDB implements Database
 
     public int executeUpdate(String sql) {
         try {
-            Debug.log("[SQL] " + sql);
             return _conn.createStatement().executeUpdate(sql);
         } catch (Exception e) {
             //System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -55,7 +53,6 @@ public class PostgresDB implements Database
 
     public ResultSet executeQuery(String sql) {
         try {
-            Debug.log("[SQL] " + sql);
             return _conn.createStatement().executeQuery(sql);
         } catch (Exception e) {
             e.printStackTrace();

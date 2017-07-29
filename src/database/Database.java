@@ -6,4 +6,6 @@ package database;
 public interface Database
 {
     void setConnectionInfo(ConnectionInfo ci);
+    int executeUpdate(String sql); // modify the database
+    java.sql.ResultSet executeQuery(String sql); // query the database
 }

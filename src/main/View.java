@@ -5,10 +5,13 @@ import info.Arguments;
 import info.Debug;
 import info.Globals;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -72,6 +75,13 @@ public class View extends JFrame
         // set the window title
         setTitle(glob.windowTitle);
 
+        // set the program icon
+        try {
+            setIconImage(ImageIO.read(new File("res/icon.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         // just exit the program when user clicks on the x
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -85,7 +95,6 @@ public class View extends JFrame
                 surface.repaint();
             }
         }, 0, 500);
-
 
     }
 
@@ -126,18 +135,3 @@ public class View extends JFrame
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
