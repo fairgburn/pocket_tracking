@@ -5,4 +5,7 @@ lib/
 out/
 bak/
 release/
+src/META-INF/
 .*/
+*.bat
+*.sh
